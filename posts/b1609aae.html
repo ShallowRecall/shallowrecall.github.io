@@ -1,0 +1,792 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>数学基础考点 | Shallow Memory's Blog</title><meta name="author" content="Recall"><meta name="copyright" content="Recall"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何实现两个向量的数乘、内积、外积和分量乘法？ 12345678910111213141516171819202122import numpy as np# 定义两个向量vector1 &#x3D; np.array([1, 2, 3])vector2 &#x3D; np.array([4, 5, 6])# 数乘scalar_multiply &#x3D; 2  # 乘以2result_scalar_multiply &#x3D; v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数学基础考点">
+<meta property="og:url" content="https://www.shallowrecall.top/posts/b1609aae.html">
+<meta property="og:site_name" content="Shallow Memory&#39;s Blog">
+<meta property="og:description" content="如何实现两个向量的数乘、内积、外积和分量乘法？ 12345678910111213141516171819202122import numpy as np# 定义两个向量vector1 &#x3D; np.array([1, 2, 3])vector2 &#x3D; np.array([4, 5, 6])# 数乘scalar_multiply &#x3D; 2  # 乘以2result_scalar_multiply &#x3D; v">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-01-07T03:43:17.000Z">
+<meta property="article:modified_time" content="2024-01-12T10:15:18.813Z">
+<meta property="article:author" content="Recall">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.shallowrecall.top/posts/b1609aae.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="#3b70fc"/><link rel="apple-touch-icon" sizes="180x180" href="/img/siteicon/128.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/siteicon/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/siteicon/16.png"/><link rel="mask-icon" href="/img/siteicon/128.png" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数学基础考点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-01-12 18:15:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/404/404.css"><link rel="stylesheet" href="/css/rightmenu.css"><link rel="stylesheet" href="/css/iconfont.css"><style id="barragesColor"></style><link rel="stylesheet" href="/css/commentBarrage.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/clock.min.css" /><link rel="stylesheet" href="https://npm.elemecdn.com/anzhiyu-blog@2.0.4/css/runtime/runtime.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-swiper-anzhiyu@1.0.4/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-swiper-anzhiyu@1.0.4/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Shallow Memory's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fas fa-comment-dots"></i><span> 闲言碎语</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐馆</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/fcircle/"><i class="fa-fw fab fa-artstation"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/bangumis/"><i class="fa-fw icon-bilibili1"></i><span> 追番</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw icon-zhifeiji"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Shallow Memory's Blog"><span class="site-name">Shallow Memory's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fas fa-comment-dots"></i><span> 闲言碎语</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐馆</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/fcircle/"><i class="fa-fw fab fa-artstation"></i><span> 朋友圈</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/bangumis/"><i class="fa-fw icon-bilibili1"></i><span> 追番</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw icon-zhifeiji"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数学基础考点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-07T03:43:17.000Z" title="发表于 2024-01-07 11:43:17">2024-01-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-12T10:15:18.813Z" title="更新于 2024-01-12 18:15:18">2024-01-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/">机器学习数学基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数学基础考点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ol>
+<li><p>如何实现两个向量的数乘、内积、外积和分量乘法？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义两个向量</span></span><br><span class="line">vector1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">vector2 = np.array([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数乘</span></span><br><span class="line">scalar_multiply = <span class="number">2</span>  <span class="comment"># 乘以2</span></span><br><span class="line">result_scalar_multiply = vector1 * scalar_multiply</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;数乘结果:&quot;</span>, result_scalar_multiply)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 内积（点积）</span></span><br><span class="line">dot_product = np.dot(vector1, vector2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;内积结果:&quot;</span>, dot_product)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 外积（叉积）</span></span><br><span class="line">cross_product = np.cross(vector1, vector2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;外积结果:&quot;</span>, cross_product)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分量乘法</span></span><br><span class="line">component_multiply = vector1 * vector2</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;分量乘法结果:&quot;</span>, component_multiply)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是哈达玛积(Hadamard product)？</p>
+<p>哈达玛积（Hadamard<br>product）是一种针对两个相同维度的矩阵或向量进行元素级别的乘法运算。也就是说，它将两个矩阵或向量的对应元素相乘，生成一个新的矩阵或向量，新矩阵或向量的每个元素都是原始矩阵或向量中对应位置的元素相乘的结果。</p>
+</li>
+<li><p>对于p-范数,p分别取值0、1、2和∞时，分别对应着那几种范数，这些范数在numpy中如何编程实现？</p>
+<ol>
+<li>当p=0时，表示零范数（L0范数），它表示向量中非零元素的数量。</li>
+<li>当p=1时，表示一范数（L1范数），它表示向量中所有元素的绝对值之和。</li>
+<li>当p=2时，表示二范数（L2范数），它表示向量中所有元素的平方和的平方根，也叫做欧几里得范数。</li>
+<li>当p=∞时，表示无穷范数（L∞范数），它表示向量中绝对值最大的元素。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个示例向量</span></span><br><span class="line">v = np.array([<span class="number">1</span>, -<span class="number">2</span>, <span class="number">3</span>, -<span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算不同p-范数</span></span><br><span class="line">p0_norm = np.linalg.norm(v, <span class="built_in">ord</span>=<span class="number">0</span>)  <span class="comment"># 零范数</span></span><br><span class="line">p1_norm = np.linalg.norm(v, <span class="built_in">ord</span>=<span class="number">1</span>)  <span class="comment"># 一范数</span></span><br><span class="line">p2_norm = np.linalg.norm(v, <span class="built_in">ord</span>=<span class="number">2</span>)  <span class="comment"># 二范数</span></span><br><span class="line">pinf_norm = np.linalg.norm(v, <span class="built_in">ord</span>=np.inf)  <span class="comment"># 无穷范数</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;L0范数:&quot;</span>, p0_norm)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;L1范数:&quot;</span>, p1_norm)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;L2范数:&quot;</span>, p2_norm)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;L∞范数:&quot;</span>, pinf_norm)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如何编程计算全０、全１、单位二阶方阵的特征值与特征向量？</p>
+<ol>
+<li><p>计算全零矩阵的特征值和特征向量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建全零矩阵</span></span><br><span class="line">zero_matrix = np.zeros((<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算特征值和特征向量</span></span><br><span class="line">eigenvalues, eigenvectors = np.linalg.eig(zero_matrix)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;全零矩阵的特征值：&quot;</span>, eigenvalues)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;全零矩阵的特征向量：\n&quot;</span>, eigenvectors)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算全一矩阵的特征值和特征向量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建全一矩阵</span></span><br><span class="line">ones_matrix = np.ones((<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算特征值和特征向量</span></span><br><span class="line">eigenvalues, eigenvectors = np.linalg.eig(ones_matrix)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;全一矩阵的特征值：&quot;</span>, eigenvalues)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;全一矩阵的特征向量：\n&quot;</span>, eigenvectors)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算单位二阶方阵的特征值和特征向量：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建单位二阶方阵</span></span><br><span class="line">identity_matrix = np.identity(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算特征值和特征向量</span></span><br><span class="line">eigenvalues, eigenvectors = np.linalg.eig(identity_matrix)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;单位二阶方阵的特征值：&quot;</span>, eigenvalues)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;单位二阶方阵的特征向量：\n&quot;</span>, eigenvectors)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>什么是相似矩阵？相似矩阵具有什么性质？</p>
+<p>相似矩阵是指存在相似关系的矩阵，即存在可逆矩阵P，使得P^(-1)AP=B</p>
+<p>相似矩阵具有以下性质：</p>
+<ol>
+<li>特征值相同：如果两个矩阵A和B是相似矩阵，它们具有相同的特征值。这意味着它们在某种意义上描述了相同的线性变换。</li>
+<li>特征向量关系：如果A和B是相似矩阵，并且v是A的一个特征向量，那么P^(-1) * v是B的相应特征向量。这说明相似矩阵之间的特征向量之间存在线性关系。</li>
+<li>形式上的变换：相似矩阵关系B = P^(-1) <em> A </em> P可以看作是对矩阵A进行了一种相似变换，将A变换为B的形式。P是这个变换的转换矩阵。</li>
+</ol>
+</li>
+<li><p>什么是矩阵的秩？什么是满秩矩阵？</p>
+<p>​ 矩阵的秩是矩阵中非零行的最大数量，或者说是矩阵的行向量组中线性无关的最大数量。它表示了矩阵中包含的信息量和维度的重要性。具体来说，矩阵的秩是指能够通过线性组合（加法和数乘）生成矩阵中所有行的最小行数。</p>
+<p>​ 满秩矩阵是指矩阵的秩等于其行数或列数中的较小值的矩阵。换句话说，对于一个n×m的矩阵，如果其秩等于n（行数）或m（列数）中的较小值，则该矩阵被称为满秩矩阵</p>
+</li>
+<li><p>矩阵的逆具有什么性质？如何编程计算矩阵的逆？</p>
+<p>矩阵的逆是指对于一个可逆矩阵（也称为非奇异矩阵），存在一个矩阵，使得两者相乘得到单位矩阵。矩阵的逆具有以下性质：</p>
+<ol>
+<li>如果矩阵A有逆矩阵A^(-1)，则A^(-1)的逆也是A，即(A^(-1))^(-1) = A。</li>
+<li>如果两个矩阵A和B都有逆矩阵，它们的乘积AB也有逆矩阵，且逆矩阵为(B^(-1)) * (A^(-1))。</li>
+<li>单位矩阵I的逆矩阵是它自己，即I^(-1) = I。</li>
+<li>零矩阵没有逆矩阵，因为没有矩阵可以与零矩阵相乘得到单位矩阵。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个可逆矩阵</span></span><br><span class="line">matrix = np.array([[<span class="number">2</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">3</span>]])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算矩阵的逆</span></span><br><span class="line">inverse_matrix = np.linalg.inv(matrix)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;原始矩阵:\n&quot;</span>, matrix)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;矩阵的逆:\n&quot;</span>, inverse_matrix)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是向量的线性相关、线性无关？</p>
+<p>线性相关是指一组向量中至少有一个向量可以通过其他向量的线性组合来表示，存在依赖关系；线性无关是指一组向量中不存在非零的线性组合能够得到零向量，它们相互独立。</p>
+</li>
+<li><p>什么是特征向量，具有什么性质？</p>
+<p>特征向量是矩阵的一个非零向量，当该向量与矩阵相乘时，仅仅发生伸缩而不改变方向。特征向量通常与特征值一起出现，它是表示线性变换中的固有方向的向量。</p>
+<p>特征向量的性质包括：</p>
+<ol>
+<li><strong>定义</strong>：对于一个方阵A，如果存在一个非零向量v和一个标量λ（特征值），使得以下等式成立：A <em> v = λ </em><br>v，那么v就是A的特征向量，λ是对应的特征值。</li>
+<li><strong>长度</strong>：特征向量的长度可以是任意的，但通常被标准化为单位向量，以便更容易理解其方向。</li>
+<li><strong>复数性质</strong>：特征值可以是实数或复数，特征向量也可以对应复数特征值。</li>
+<li><strong>多个特征向量</strong>：一个矩阵可以有多个特征向量和对应的特征值。</li>
+<li><strong>表示变换方向</strong>：特征向量表示了矩阵的线性变换中的固有方向，它们保持在变换后的方向不变或仅发生伸缩。</li>
+<li><strong>应用</strong>：特征向量和特征值在许多领域中有广泛的应用，包括线性代数、物理学、工程学、数据分析等。它们用于矩阵对角化、特征值分解、主成分分析（PCA）等任务。</li>
+</ol>
+</li>
+<li><p>什么是正交矩阵？正交矩阵具有什么性质？</p>
+<p>正交矩阵（Orthogonal Matrix）是一个方阵，其行向量和列向量都是标准正交的（单位长度且互相正交）。具体来说，正交矩阵满足以下两个条件：</p>
+<ol>
+<li>正交矩阵的行向量是单位向量，也就是每个行向量的长度（范数）等于1。</li>
+<li>正交矩阵的列向量也是单位向量，并且互相正交，也就是每一对不同的列向量的内积为0。</li>
+</ol>
+<p>正交矩阵的性质包括：</p>
+<ol>
+<li>正交矩阵的转置是它的逆矩阵。如果矩阵Q是正交矩阵，则Q^T <em> Q = Q </em> Q^T = I，其中I是单位矩阵。</li>
+<li>正交矩阵的行向量和列向量都构成标准正交基。这意味着它们可以用作向量空间的基，并且能够保持向量的长度和角度不变。</li>
+<li>正交矩阵的行列式的绝对值等于1。即，det(Q) = ±1。</li>
+<li>正交矩阵表示的线性变换保持向量的长度和角度不变，是一种保持欧几里得空间中距离和角度不变的变换。</li>
+<li>正交矩阵在旋转、反射、镜像等几何变换中具有重要应用，因为它们保持了空间的正交性质。</li>
+</ol>
+</li>
+<li><p>什么是LU分解、特征分解、奇异值分解？这三者有什么差异？</p>
+<ol>
+<li><strong>LU分解</strong>：<ul>
+<li>LU分解是一种将一个矩阵分解为两个矩阵的方法，一个是下三角矩阵（Lower Triangular Matrix，L），另一个是上三角矩阵（Upper<br>Triangular Matrix，U）。</li>
+<li>LU分解通常用于解线性方程组，可以将一个大型线性方程组的求解问题拆分成两个步骤，首先通过LU分解将系数矩阵分解为L和U，然后通过前代和回代的方式求解方程组。</li>
+<li>LU分解不一定适用于所有矩阵，只适用于非奇异（可逆）矩阵。</li>
+</ul>
+</li>
+<li><strong>特征分解</strong>：<ul>
+<li>特征分解是一种将一个方阵分解为一组特征向量和对应的特征值的方法。</li>
+<li>特征分解通常用于矩阵对角化，将一个矩阵表示为特征向量矩阵和特征值矩阵的乘积。</li>
+<li>特征分解仅适用于某些类型的矩阵，例如对称矩阵。</li>
+</ul>
+</li>
+<li><strong>奇异值分解</strong>：<ul>
+<li>奇异值分解是一种将一个任意矩阵分解为三个矩阵的方法，一个是正交矩阵（通常是U矩阵），一个是对角矩阵（包含奇异值的Σ矩阵），另一个是正交矩阵的转置（通常是V^T矩阵）。</li>
+<li>奇异值分解是一种广泛适用于任意矩阵的分解方法，没有像LU分解和特征分解那样的限制。</li>
+<li>奇异值分解在降维、矩阵压缩、数据压缩、图像处理、机器学习等领域中有广泛应用。</li>
+</ul>
+</li>
+</ol>
+<p>差异：</p>
+<ul>
+<li>LU分解是用于解线性方程组的方法，将矩阵分解为下三角和上三角矩阵。</li>
+<li>特征分解是将矩阵对角化的方法，将矩阵分解为特征向量和特征值的矩阵。</li>
+<li>奇异值分解是将任意矩阵分解为三个矩阵的方法，通常用于降维和数据分析。</li>
+</ul>
+</li>
+<li><p>什么是正定矩阵？正定矩阵具有什么性质？<br>正定矩阵（Positive Definite Matrix）是一类特殊的对称矩阵，具有一些重要的性质。一个n×n的实对称矩阵A被称为正定矩阵，如果对于任意非零实向量x，都满足以下条件：</p>
+<p>x^T <em> A </em> x &gt; 0</p>
+<p>其中，x^T表示x的转置，A表示矩阵A。这意味着正定矩阵的所有特征值都是正数，并且任何非零向量经过A的作用后，其结果都是正数。正定矩阵的性质包括：</p>
+<ol>
+<li>所有的特征值都是正数。即，A的特征值λ满足λ &gt; 0。</li>
+<li>矩阵A的行列式（det(A)）是正数。</li>
+<li>矩阵A的主子矩阵（由A的任意一些行和列组成的子矩阵）也是正定矩阵。</li>
+<li>正定矩阵是对称的，即A等于其转置A^T。</li>
+<li>正定矩阵是非奇异的（可逆的），因为它的行列式不为零。</li>
+<li>正定矩阵在优化、数值计算和线性代数中具有重要应用，例如在正定线性规划、最小二乘法、协方差矩阵、多元统计分析等领域。</li>
+</ol>
+</li>
+<li><p>用于相似性度量的二元函数应满足那些约束条件？<br>用于相似性度量的二元函数通常被称为相似性度量函数或相似性度量指标。这些函数用于衡量两个对象之间的相似性或相异性。这些函数应满足以下一些常见的约束条件和性质：</p>
+<ol>
+<li><strong>非负性（Non-Negativity）</strong>：相似性度量函数的值应始终为非负数，即对于所有的输入x和y，d(x, y) &gt;= 0。</li>
+<li><strong>自反性（Reflexivity）</strong>：函数应满足自反性，即对于所有的输入x，d(x, x) = 0。这表示一个对象与自身的相似性应该最大。</li>
+<li><strong>对称性（Symmetry）</strong>：函数应满足对称性，即对于所有的输入x和y，d(x, y) = d(y, x)。这表示两个对象之间的相似性度量不应依赖于它们的顺序。</li>
+<li><strong>三角不等式（Triangle Inequality）</strong>：函数应满足三角不等式，即对于所有的输入x、y和z，d(x, y) + d(y, z) &gt;= d(x, z)<br>。这表示通过中介对象y测量的距离不应该小于直接测量的距离。</li>
+<li><strong>有界性（Boundedness）</strong>：一些相似性度量函数可能需要满足有界性，即存在一个上界，使得函数的值不会无限增长。这可以帮助确保度量的稳定性</li>
+</ol>
+</li>
+<li><p>闵可夫斯基距离包含那些类型，他们之间的关系如何？如何编程实现？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107104243479.png" alt="image-20240107104243479"  /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">minkowski_distance</span>(<span class="params">x, y, p=<span class="number">2</span></span>):</span><br><span class="line">    <span class="keyword">if</span> p == np.inf:</span><br><span class="line">        <span class="keyword">return</span> np.<span class="built_in">max</span>(np.<span class="built_in">abs</span>(x - y))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> np.power(np.<span class="built_in">sum</span>(np.<span class="built_in">abs</span>(x - y) ** p), <span class="number">1</span>/p)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例用法</span></span><br><span class="line">point1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">point2 = np.array([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line">p1_distance = minkowski_distance(point1, point2, p=<span class="number">1</span>)  <span class="comment"># 曼哈顿距离</span></span><br><span class="line">p2_distance = minkowski_distance(point1, point2, p=<span class="number">2</span>)  <span class="comment"># 欧几里德距离</span></span><br><span class="line">p_inf_distance = minkowski_distance(point1, point2, p=np.inf)  <span class="comment"># 切比雪夫距离</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;曼哈顿距离:&quot;</span>, p1_distance)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;欧几里德距离:&quot;</span>, p2_distance)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;切比雪夫距离:&quot;</span>, p_inf_distance)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是马氏距离？它与欧氏距离有什么关系？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107104452368.png" alt="image-20240107104452368"></p>
+</li>
+<li><p>什么是余弦距离和余弦相似度？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107104840688.png" alt="image-20240107104840688"></p>
+</li>
+<li><p>什么是汉明距离？</p>
+<p>汉明距离是指两个等长字符串之间的汉明距离，即两个字符串在相同位置上不同字符的个数。汉明距离以理查德·卫斯里·汉明的名字命名，是一种用于比较两个二进制数据字符串的度量。在信息论中，汉明距离也用于表示两个等长字符串之间的相似度，即需要替换多少个字符才能将一个字符串变成另一个字符串。</p>
+<p>计算汉明距离的方法是，对两个字符串进行异或运算，并统计结果为1的个数。如果两个字符相同，则异或结果为0；如果两个字符不同，则异或结果为1。因此，对两个字符串进行异或运算，可以得出每个位置上不同字符的个数，即汉明距离。</p>
+<p>汉明距离也可以用于比较两个等长二进制数据块的差异程度。在这种情况下，汉明距离可以用来检测数据传输中的错误。在数据传输过程中，如果由于噪音或干扰导致数据发生错误，那么接收端可以通过计算收到的数据与发送端的数据之间的汉明距离来检测错误。如果汉明距离较小，说明数据传输中错误较少；如果汉明距离较大，说明数据传输中错误较多。</p>
+<p>此外，汉明重量是字符串相对于同样长度的零字符串的汉明距离，即非零的元素个数。对于二进制字符串来说，1的个数即为汉明重量。</p>
+<p>总之，汉明距离是一种用于比较两个字符串或数据块差异程度的度量，常用于数据传输差错控制编码和信息论等领域。</p>
+</li>
+<li><p>什么是皮尔森距离？它与余弦距离是什么关系？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110044522.png" alt="image-20240107110044522"></p>
+</li>
+<li><p>什么是斯皮尔曼距离？什么是肯德尔距离？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110135794.png" alt="image-20240107110135794"></p>
+</li>
+<li><p>什么是凸集分离定理？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110236650.png" alt="image-20240107110236650"></p>
+</li>
+<li><p>函数的凹凸性与极值之间的关系是什么？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110329504.png" alt="image-20240107110329504"></p>
+</li>
+<li><p>什么是激活函数，其作用是什么？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110423525.png" alt="image-20240107110423525"></p>
+</li>
+<li><p>函数的连续与可导的关系是什么？函数可导的充要条件是什么?</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110515862.png" alt="image-20240107110515862"></p>
+</li>
+<li><p>函数导数与凹凸性的关系如何？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110605183.png" alt="image-20240107110605183"></p>
+</li>
+<li><p>方向导数、梯度、散度的定义是什么？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110650782.png" alt="image-20240107110650782"></p>
+</li>
+<li><p>雅可比矩阵、Hessian矩阵的定义是什么？Hessan矩阵和Jacobi矩阵的关系如何？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110759474.png" alt="image-20240107110759474"></p>
+</li>
+<li><p>什么是全概率？什么是贝叶斯公式？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107110841324.png" alt="image-20240107110841324"></p>
+</li>
+<li><p>如何编程实现两个数组的相关性？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> pearsonr, spearmanr</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建两个示例数组</span></span><br><span class="line">array1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">array2 = np.array([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算皮尔逊相关系数</span></span><br><span class="line">pearson_corr, _ = pearsonr(array1, array2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;皮尔逊相关系数:&quot;</span>, pearson_corr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算斯皮尔曼相关系数</span></span><br><span class="line">spearman_corr, _ = spearmanr(array1, array2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;斯皮尔曼相关系数:&quot;</span>, spearman_corr)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如何编程实现两个数组的协方差矩阵？协方差矩阵具有什么性质？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建两个示例数组</span></span><br><span class="line">array1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">array2 = np.array([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算协方差矩阵</span></span><br><span class="line">cov_matrix = np.cov(array1, array2)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;协方差矩阵:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(cov_matrix)</span><br></pre></td></tr></table></figure>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111018095.png" alt="image-20240107111018095"></p>
+</li>
+<li><p>如何编程画出正态分布曲线，分析不同参数对曲线的影响。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> norm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义正态分布的均值和标准差</span></span><br><span class="line">mu_values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]  <span class="comment"># 不同均值</span></span><br><span class="line">sigma_values = [<span class="number">0.5</span>, <span class="number">1</span>, <span class="number">1.5</span>]  <span class="comment"># 不同标准差</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个x轴的值范围</span></span><br><span class="line">x = np.linspace(-<span class="number">5</span>, <span class="number">5</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制不同参数下的正态分布曲线</span></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> mu <span class="keyword">in</span> mu_values:</span><br><span class="line">    <span class="keyword">for</span> sigma <span class="keyword">in</span> sigma_values:</span><br><span class="line">        <span class="comment"># 计算概率密度函数（PDF）</span></span><br><span class="line">        pdf = norm.pdf(x, loc=mu, scale=sigma)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 绘制曲线</span></span><br><span class="line">        label = <span class="string">f&quot;μ=<span class="subst">&#123;mu&#125;</span>, σ=<span class="subst">&#123;sigma&#125;</span>&quot;</span></span><br><span class="line">        plt.plot(x, pdf, label=label)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&#x27;不同参数下的正态分布曲线&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;随机变量值&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;概率密度&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>什么是参数估计？参数估计量应那些基本特性？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111229225.png" alt="image-20240107111229225"></p>
+</li>
+<li><p>什么是无偏估计样本？样本统计量的典型代表有哪些？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111305015.png" alt="image-20240107111305015"></p>
+</li>
+<li><p>自编码器有哪些部件组成？分别具有那些功能？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111426129.png" alt="image-20240107111426129"></p>
+</li>
+<li><p>联合熵、条件熵、交叉熵和相对熵是如何定义的？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111511582.png" alt="image-20240107111511582"></p>
+</li>
+<li><p>卷积与池化的定义和功能是什么？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111557806.png" alt="image-20240107111557806"></p>
+</li>
+<li><p>什么是过拟合与欠拟合问题？如何避免过拟合与欠拟合？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111647208.png" alt="image-20240107111647208"></p>
+</li>
+<li><p>什么是奥卡姆剃刀原则？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111730503.png" alt="image-20240107111730503"></p>
+</li>
+<li><p>硬正则化和软正则化分别有那些方法？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111828990.png" alt="image-20240107111828990"></p>
+</li>
+<li><p>数据归一化、标准化的左右是什么？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107111948379.png" alt="image-20240107111948379"></p>
+<p>数据归一化和标准化的作用如下：</p>
+<ol>
+<li>数据归一化：将数据转换到特定的范围，如0-1之间，以便更好地进行数据处理和分析。归一化可以消除数据的规模和范围对分析的影响，使得不同量级的特征具有相同的尺度，从而避免某些特征在训练时占据主导地位。<br>2.<br>数据标准化：将数据按照一定的数学公式进行转换，使得数据的平均值为0，标准差为1，从而消除数据的量纲和单位对分析的影响。标准化可以使得不同量级的特征具有相同的尺度，避免某些特征在训练时占据主导地位。同时，标准化还可以使得数据更加符合正态分布，从而更好地进行机器学习模型的训练和预测。</li>
+</ol>
+</li>
+<li><p>什么是期望风险、经验风险、置信风险和VC维？它们的相互关系如何？</p>
+<p>期望风险、经验风险、置信风险和VC维都是机器学习和统计学中的概念，它们之间存在相互关联和差异。</p>
+<ol>
+<li>期望风险（Expected Risk）：是泛化风险的一种表示，它是在模型训练过程中预测错误的平均损失。期望风险的数学定义为：R(f) =<br>E[L(Y, f(X))] 其中，L(Y, f(X))表示损失函数，Y是真实值，f(X)是预测值，E表示期望。期望风险反映了模型对未知数据的预测能力。</li>
+<li>经验风险（Empirical Risk）：又称为样本风险，是训练过程中样本损失的平均值。经验风险的数学定义为：R_emp(f) = 1/N Σ L(Y_i,<br>f(X_i)) 其中，N是样本数量，L(Y_i, f(X_i))表示第i个样本的损失，Σ表示求和。经验风险反映了模型对训练数据的拟合能力。</li>
+<li>置信风险：是模型对未知数据的预测误差的估计误差。置信风险的数学定义为：R_conf(f) = E[R(f)] - R_emp(f) 其中，E[R(f)]<br>是期望风险的期望值。置信风险反映了模型预测的不确定性。</li>
+<li>VC维（Vapnik-Chervonenkis Dimension）：是衡量模型复杂度和学习能力的指标。VC维的定义与具体模型有关，但一般来说，如果一个模型的VC维越高，则其表示能力越强，但过拟合的风险也越大。</li>
+</ol>
+<p>相互关系：</p>
+<ul>
+<li>期望风险、经验风险和置信风险都是衡量模型风险的指标，其中期望风险关注模型对未知数据的预测能力，经验风险关注模型对训练数据的拟合能力，置信风险关注模型预测的不确定性。</li>
+<li>VC维是衡量模型复杂度和学习能力的指标，它与期望风险、经验风险和置信风险都有关系。一般来说，如果模型的VC维越高，则其表示能力越强，但过拟合的风险也越大，这可能会导致期望风险和经验风险的差异增大，从而增加置信风险。</li>
+</ul>
+<p>在实际应用中，需要根据具体问题和数据特性来选择合适的模型和算法，以平衡各种风险并获得最佳的预测效果。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107112332136.png" alt="image-20240107112332136"></p>
+<p>这些概念之间的关系可以总结如下：</p>
+<ul>
+<li>经验风险是在训练数据上测量的模型性能，期望风险是在整个数据分布上的期望性能，而置信风险是期望风险的一个上界估计，用于表示不确定性。</li>
+<li>VC维反映了模型的复杂性，与模型的能力和泛化误差有关。较高的VC维可能导致较大的期望风险，特别是在样本量较小的情况下。</li>
+</ul>
+</li>
+<li><p>函数最大化问题和函数最小化问题之间的关系？当前的最优化问题一般是哪一类问题？</p>
+<p>​<br>函数最大化问题和函数最小化问题之间存在密切的关系，它们经常可以相互转化。具体来说，如果你有一个函数最大化的问题，你可以将其转化为一个函数最小化的问题，反之亦然。这是因为最大化问题的解通常可以通过将相应的函数取负值来转化为最小化问题，而最小化问题的解可以通过将相应的函数取相反数来转化为最大化问题。</p>
+<p>​ 当前的最优化问题一般可以分为以下几类：</p>
+<ol>
+<li><strong>无约束最优化问题</strong>：在这类问题中，优化目标是最大化或最小化一个函数，没有约束条件。通常，这类问题可以通过计算函数的梯度或导数来寻找最优解。</li>
+<li><strong>有约束最优化问题</strong>：这类问题中，除了优化目标函数外，还有一些约束条件，如等式约束和不等式约束。例如，线性规划问题就是一种有约束的最优化问题。</li>
+<li><strong>整数最优化问题</strong>：在这类问题中，决策变量被限制为整数值。整数最优化问题常见于组合优化、离散优化和排程问题。</li>
+<li><strong>凸优化问题</strong>：凸优化问题是一种特殊的最优化问题，其中优化目标函数和约束条件都是凸函数。凸优化问题具有良好的性质和可行解的存在保证，因此在实际中广泛应用。</li>
+<li><strong>非凸优化问题</strong>：非凸优化问题中，优化目标函数和/或约束条件至少有一个是非凸函数。非凸问题通常更具挑战性，因为它们可能具有多个局部最优解。</li>
+</ol>
+</li>
+<li><p>无约束优化与约束优化之间具有什么关系？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107112631192.png" alt="image-20240107112631192"></p>
+</li>
+<li><p>什么是梯度下降法、牛顿法、拟牛顿法和坐标下降法？</p>
+<ol>
+<li><strong>梯度下降法（Gradient Descent）</strong>：<ul>
+<li>梯度下降法是一种迭代优化算法，用于最小化目标函数。它的核心思想是通过迭代更新参数，使目标函数的值逐渐减小。</li>
+<li>梯度下降法的步骤包括计算目标函数的梯度（导数），然后以负梯度方向作为搜索方向，更新参数。学习率是控制步长的超参数，影响算法的收敛速度和稳定性。</li>
+<li>梯度下降法通常适用于大规模数据集和高维参数空间，但可能需要精心选择学习率。</li>
+</ul>
+</li>
+<li><strong>牛顿法（Newton’s Method）</strong>：<ul>
+<li>牛顿法是一种迭代优化算法，也用于最小化目标函数。它不仅使用目标函数的梯度，还利用了二阶导数信息（Hessian矩阵）。</li>
+<li>牛顿法通过解牛顿方程来找到更新参数的方向，通常可以更快地收敛到局部最小值。但需要计算和存储Hessian矩阵，因此在高维参数空间中的应用有时不太实际。</li>
+</ul>
+</li>
+<li><strong>拟牛顿法（Quasi-Newton Methods）</strong>：<ul>
+<li>拟牛顿法是一类优化算法，旨在克服牛顿法中计算和存储Hessian矩阵的问题。它们通过估计Hessian矩阵的逆来近似牛顿法的步骤。</li>
+<li>BFGS和L-BFGS（Limited-memory BFGS）是拟牛顿法的代表，它们在实际应用中往往比纯牛顿法更具吸引力，尤其是在高维参数空间中。</li>
+</ul>
+</li>
+<li><strong>坐标下降法（Coordinate Descent）</strong>：<ul>
+<li>坐标下降法是一种迭代优化算法，用于最小化目标函数，它将参数的更新分解为坐标方向的更新。</li>
+<li>在每个迭代步骤中，坐标下降法选择一个坐标方向，将其固定，然后沿该方向最小化目标函数。这个过程在不同的坐标方向上交替进行。</li>
+<li>坐标下降法通常用于高维优化问题，其中每次迭代只需要考虑一个坐标维度，因此计算成本较低。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>相对梯度法，牛顿法、拟牛顿法具有那些改进？</p>
+<ol>
+<li><strong>相对梯度法</strong>：<ul>
+<li>相对梯度法是一种基于相对梯度信息的优化算法，它不需要计算目标函数的梯度，而是使用相对梯度信息来更新参数。</li>
+<li>优点：相对梯度法通常比传统的梯度法更鲁棒，特别适用于目标函数不可导或不易计算梯度的情况。它可以处理非光滑和非凸的目标函数。</li>
+<li>缺点：相对梯度法可能需要更多的迭代步骤来达到收敛，因此在某些情况下可能比梯度法收敛较慢。</li>
+</ul>
+</li>
+<li><strong>牛顿法</strong>：<ul>
+<li>牛顿法是一种使用目标函数的梯度和二阶导数信息来进行迭代优化的算法。它通常能够更快地收敛到局部最小值。</li>
+<li>优点：牛顿法通常具有更快的收敛速度，特别适用于光滑的凸优化问题。它能够更准确地估计最优解的位置。</li>
+<li>缺点：牛顿法需要计算和存储目标函数的二阶导数（Hessian矩阵），这可能在高维问题中变得昂贵。此外，它对于非凸问题的收敛性不稳定。</li>
+</ul>
+</li>
+<li><strong>拟牛顿法</strong>：<ul>
+<li>拟牛顿法是一类优化算法，旨在克服牛顿法中计算和存储Hessian矩阵的问题。它们通过估计Hessian矩阵的逆来近似牛顿法的步骤。</li>
+<li>优点：拟牛顿法在光滑的非线性优化问题中表现良好，并且不需要显式计算Hessian矩阵。它们通常在高维问题中表现较好。</li>
+<li>缺点：尽管拟牛顿法在某些情况下能够提供较快的收敛速度，但它们不如牛顿法那样具有全局收敛性。此外，拟牛顿法的性能通常受到初始点的选择影响。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>相对梯度法，牛顿法和拟牛顿法具有以下改进：</p>
+<ol>
+<li>收敛速度：牛顿法和拟牛顿法通常具有比梯度下降法更快的收敛速度，因为它们利用了更高阶的信息来逼近函数的最小值点。这使得在处理大规模优化问题时，牛顿法和拟牛顿法能够更快地找到最优解。</li>
+<li>所需梯度：梯度下降法需要计算目标函数的梯度，而牛顿法和拟牛顿法则需要计算目标函数的Hessian矩阵。在某些情况下，计算Hessian矩阵可能比计算梯度更加复杂，但牛顿法和拟牛顿法可以利用近似方法来简化这一计算过程。</li>
+<li>局部最优解：梯度下降法容易陷入局部最优解，而牛顿法和拟牛顿法则通常能够更好地远离局部最优解，从而更有可能找到全局最优解。</li>
+<li>参数调整：牛顿法和拟牛顿法通常需要调整的参数较少，因为它们利用了更高阶的信息，具有更好的数值稳定性和鲁棒性。</li>
+</ol>
+<p>综上所述，相对梯度法，牛顿法和拟牛顿法在收敛速度、所需梯度、局部最优解和参数调整等方面具有改进。在处理大规模优化问题时，这些方法通常能够更快地找到最优解，并且具有更好的数值稳定性和鲁棒性。</p>
+</li>
+<li><p>如果编程实现梯度下降法进行模型训练？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成示例数据</span></span><br><span class="line">np.random.seed(<span class="number">0</span>)</span><br><span class="line">X = <span class="number">2</span> * np.random.rand(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line">y = <span class="number">4</span> + <span class="number">3</span> * X + np.random.randn(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化模型参数</span></span><br><span class="line">theta = np.random.randn(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义学习率和迭代次数</span></span><br><span class="line">learning_rate = <span class="number">0.1</span></span><br><span class="line">num_iterations = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 梯度下降训练模型</span></span><br><span class="line"><span class="keyword">for</span> iteration <span class="keyword">in</span> <span class="built_in">range</span>(num_iterations):</span><br><span class="line">    <span class="comment"># 计算梯度</span></span><br><span class="line">    gradients = -<span class="number">2</span>/<span class="built_in">len</span>(X) * X.T.dot(y - X.dot(theta))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 更新参数</span></span><br><span class="line">    theta = theta - learning_rate * gradients</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练后的参数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;训练后的参数 theta:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(theta)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果编程实现批量梯度下降算法？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成示例数据</span></span><br><span class="line">np.random.seed(<span class="number">0</span>)</span><br><span class="line">X = <span class="number">2</span> * np.random.rand(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line">y = <span class="number">4</span> + <span class="number">3</span> * X + np.random.randn(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化模型参数</span></span><br><span class="line">theta = np.random.randn(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义学习率和迭代次数</span></span><br><span class="line">learning_rate = <span class="number">0.1</span></span><br><span class="line">num_iterations = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量梯度下降训练模型</span></span><br><span class="line">m = <span class="built_in">len</span>(X)  <span class="comment"># 训练样本数量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> iteration <span class="keyword">in</span> <span class="built_in">range</span>(num_iterations):</span><br><span class="line">    <span class="comment"># 计算梯度</span></span><br><span class="line">    gradients = -<span class="number">2</span>/m * X.T.dot(y - X.dot(theta))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 更新参数</span></span><br><span class="line">    theta = theta - learning_rate * gradients</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练后的参数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;训练后的参数 theta:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(theta)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查准率和查全率是如何定义的？它们的关系是怎样的？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107113500900.png" alt="image-20240107113500900"></p>
+</li>
+<li><p>什么是P-R曲线？如何根据P-R曲线判断模型性能优劣？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107113549809.png" alt="image-20240107113549809"></p>
+</li>
+<li><p>什么是ROC曲线？如何根据ROC曲线判断模型性能优劣？</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.shallowrecall.top/images/2024/1/image-20240107113622263.png" alt="image-20240107113622263"></p>
+</li>
+<li><p>什么是混淆矩阵？混淆矩阵主要由哪些元素构成？</p>
+<p>混淆矩阵（Confusion Matrix），也称为误差矩阵（Error Matrix）或分类表（Contingency Table），是用于评估二分类模型性能的重要工具。它主要由以下四个元素构成：</p>
+<ol>
+<li><p><strong>真正例（True Positives，TP）</strong>：表示模型正确预测为正类别的样本数量。这是实际正类别样本被正确分类的数量。</p>
+</li>
+<li><p><strong>假正例（False Positives，FP）</strong>：表示模型错误预测为正类别的样本数量。这是实际负类别样本被错误分类为正类别的数量。</p>
+</li>
+<li><p><strong>真负例（True Negatives，TN）</strong>：表示模型正确预测为负类别的样本数量。这是实际负类别样本被正确分类的数量。</p>
+</li>
+<li><p><strong>假负例（False Negatives，FN）</strong>：表示模型错误预测为负类别的样本数量。这是实际正类别样本被错误分类为负类别的数量。</p>
+</li>
+</ol>
+<p>混淆矩阵通常以如下形式呈现：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">         |   实际正类别    |    实际负类别</span></span><br><span class="line"><span class="section">----------------------------------------</span></span><br><span class="line"><span class="section">预测为正 |   TP            |    FP</span></span><br><span class="line"><span class="section">----------------------------------------</span></span><br><span class="line">预测为负 |   FN            |    TN</span><br></pre></td></tr></table></figure>
+<p>混淆矩阵的四个元素可以用于计算各种性能指标，包括查准率（Precision）、查全率（Recall）、F1分数（F1-Score）、准确率（Accuracy）、假正例率（False<br>Positive Rate，FPR）等，这些指标有助于全面评估模型的性能。</p>
+<p>混淆矩阵是评估二分类模型性能的关键组成部分，它提供了详细的信息，帮助我们理解模型在不同类别上的表现，特别是在类别不平衡的情况下。通过分析混淆矩阵，可以确定模型的优势和劣势，优化模型的性能，以及根据任务需求进行适当的调整。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.shallowrecall.top">Recall</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.shallowrecall.top/posts/b1609aae.html">https://www.shallowrecall.top/posts/b1609aae.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.shallowrecall.top" target="_blank">Shallow Memory's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="http://easyimg.qianyiwb.com/i/u/2023/08/13/kh5e7q.webp" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://easyimg.qianyiwb.com/i/u/2023/08/13/kh5e7q.webp" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="http://easyimg.qianyiwb.com/i/u/2023/08/13/khrb1l.webp" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="http://easyimg.qianyiwb.com/i/u/2023/08/13/khrb1l.webp" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/62a3a0d6.html" title="计算机专业英语"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计算机专业英语</div></div></a></div><div class="next-post pull-right"><a href="/posts/505b9ee7.html" title="响应状态码"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">响应状态码</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Recall</div><div class="author-info__description">浅忆の博客，欢迎访问</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ShallowRecall" target="_blank" title="icon-gitHub"><i class="Github" style="color: faa-tada;"></i></a><a class="social-icon" href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=1989424334@qq.com" target="_blank" title="icon-youxiang"><i class="Email" style="color: faa-tada;"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="icon-rss"><i class="RSS" style="color: faa-tada;"></i></a><a class="social-icon" href="https://space.bilibili.com/1508193381" target="_blank" title="icon-bilibili"><i class="BiliBili" style="color: faa-tada;"></i></a><a class="social-icon" href="tencent://Message/?Uin=1989424334&amp;amp;websiteName=local.edu.com:8888=&amp;amp;Menu=yes" target="_blank" title="icon-QQ1"><i class="QQ" style="color: faa-tada;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/24e1cb9d.html" title="Windows运行命令大全">Windows运行命令大全</a><time datetime="2024-01-12T10:20:07.000Z" title="发表于 2024-01-12 18:20:07">2024-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4a17b156.html" title="Hello World">Hello World</a><time datetime="2024-01-12T10:15:18.811Z" title="发表于 2024-01-12 18:15:18">2024-01-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/c703b936.html" title="数学基础编程题">数学基础编程题</a><time datetime="2024-01-10T15:05:05.000Z" title="发表于 2024-01-10 23:05:05">2024-01-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/62a3a0d6.html" title="计算机专业英语">计算机专业英语</a><time datetime="2024-01-09T13:32:03.000Z" title="发表于 2024-01-09 21:32:03">2024-01-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/b1609aae.html" title="数学基础考点">数学基础考点</a><time datetime="2024-01-07T03:43:17.000Z" title="发表于 2024-01-07 11:43:17">2024-01-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Recall</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.shallowrecall.top/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.shallowrecall.top/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script type="text/javascript" src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><div class="aplayer no-destroy" data-id="8152976493" data-server="netease" data-type="playlist"   data-order="list" data-fixed="true" data-preload="auto" data-autoplay="false" data-mutex="true" ></div><script async src="/js/title.js"></script><script type="text/javascript" src="/js/rightmenu.js"></script><script type="text/javascript" src="/js/commentBarrage.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script>
+    // 全局变量声明区域
+    var fdata = {
+      apiurl: 'https://hexo-friendcircle-api-ai9d4hwad-anzhiyu-c.vercel.app/api',
+      initnumber: 20, //【可选】页面初始化展示文章数量
+      stepnumber: 10, //【可选】每次加载增加的篇数
+      error_img: 'https://npm.elemecdn.com/akilar-candyassets/image/404.gif' //【可选，头像图片加载失败时的默认头像】
+    }
+    //存入本地存储
+    localStorage.setItem("fdatalist",JSON.stringify(fdata))
+    </script>
+    <script defer src="https://npm.elemecdn.com/hexo-filter-fcircle/assets/js/fetch.min.js"></script><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://npm.elemecdn.com/akilar-candyassets/image/cover1.webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/HTTP协议/&quot;);" href="javascript:void(0);">HTTP协议</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">Ubuntu指南</span></li><li class="categoryBar-list-item" style="background:url(https://npm.elemecdn.com/akilar-candyassets/image/cover2.webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/玩转Windows/&quot;);" href="javascript:void(0);">玩转Windows</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr">玩转Win10</span></li><li class="categoryBar-list-item" style="background:url(https://npm.elemecdn.com/akilar-candyassets/image/cover3.webp);"> <a class="categoryBar-list-link" onclick="pjax.loadUrl(&quot;categories/机器学习数学基础/&quot;);" href="javascript:void(0);">机器学习数学基础</a><span class="categoryBar-list-count">2</span><span class="categoryBar-list-descr">长篇小说连载</span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = 'b3c67816d9fb46e499e17457f70a924a';
+  var gaud_map_key = '1c2f1a71c7cf14810fdb54e8031f49c4';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '112.6534116,27.96920845';
+  var clock_default_rectangle_enable = 'true';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/clock.min.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.2.2" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" style="margin-inline:5px" data-title="本站已在湘进行备案" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/湘ICP备-2022004213号-e1d492?style=flat&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAdCAYAAAC9pNwMAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDIgNzkuMTYwOTI0LCAyMDE3LzA3LzEzLTAxOjA2OjM5ICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+nhxg7wAACNlJREFUSInF1mmMVeUdx/Hv2e+5+519mJWBYQZkGxZZxLKJqBXGoLS1iXWrmihotFXaJiTWWlsbl6q1aetWd5u0VkKjNG4YEJSlOCibDLMwM8x679z9nnPP1jcVJUxf+7z6J8+LT37/Z4VvaQhfFS8+sBXbctCDGrVTKlBUH4mxAbI9Hfj0IJLsp6paJ5/tmn20N/D0wKDRMq9F/c3M2U1/V0vDfWMFh+tv/Ig1zYPMabDImPJ52OaXO87W580KggCiiOsJOJ6I3wcNFaaeNKxrt72f2fLGu4FpJ/sDQABRzD22fH7/Yze069vGc6mrDLNIJCDik10sxz2by3VdPM87xzkP9jwPTZFRVI1YUJKH+oy7n3tbvv/P2wW/UQxRWe6w4ZJRptYLHDoCuz8v5cP92XbI762O+h6UVWHnUFbPpU0fEb2A60mMJ7MUi9b/b7UgKhiZMaIxm8YLplLMDPz8hl/EH+rs8TNlUpFf32uyZJGLPDwCiTGUyTWodTN49eUCdz2YwXb9NNcObp1X98WDoufynzMVCEKGn27ayPTWBi5ad8P5iQUkJEnFLjqM9Z+hrVX0vfDe6K2dPRWsW2bwyp9EUifSJB84gdxrkR0eRgv1o/3I4fbbprJ6scqamzVO9pffec1S5ZWY2Nfz5qEy/FqOC2Y3s3j53HMSi18VRjFPwSwg+1RfVbl115vvJrsfej7UGIsYPPGgQ7JXoO+Xx5B3dHEomyJ9x1qiQozkr95h5937aFnVyouPlgJK+Ss7Fxz64OTSxSX+LHYxT2IsRW5kbGI4oHcR0jqoqTjV9se3I7/f8rS/ClS23GxSXhph6L5d9Akm7qqZhHWBQGUJ+CWGFzcg7e7m6D3/ZuW1Ea5YKdA3EojuONi813TqNi+YPYOKUhXDtCeGL26/hakLLiEcdsaHRkRAoLRc4fJrmhnekyF0apgZowWSwwkaa+rw3f8WA1GZZsPP5JEChX8dhZTN6iU6kAcs5s+dHd183SJ0VVKL57pfw6YdRQw23aeWTns47DPTALWlRTR7kMLew6hGgYqUhWXYFFUdPZ6lUBahLA8hVcOftckfi7No7VRAAQqsX1dybfvG1qwriM9mM5mJ4e4jO5Cc01dPqixbr8tWGBQUL4vjGigEEShi+xUmZ2RiR/sJ1pbS8NkgZrKAGw0TsgQsQyFaF/nfYTGprAlMFysbA1pI3mhkR6snhGsaymYGvPyFEb9IdbUE2AzFFTwpRqCtBY0wmdER+hZW4j63gcJj38V+/ErSUZXsYBfjIZHIRW0c2Z8BskCAqN+CbBJBFnyyKjR+Ez57nBxLqpfMUeSISElMBFz6x2Q6OxzWrYjyxWVzEewioU3LCS5vQY6nMUrLwNaxXvoQ59IloFSx54PPAZtQLExVZZDxsVE8J4dn6v4JYatgbSjk0owPw7RGH2ADMo88Z7L20ip8f7gC7fAo0q4+0rt7kEQDvaghVZbiPHUHcyeXcfLjT3jmpR7AYsnSScya3UR8bARVMck7Y/cB75/X6rDf3Fg2dw2jKZm5dXGm1LuAzO5DCo9v6aT0ibco5kzOvLOP+NGTFJtDpPYeZKijk/Rn3QxsfZV7txwhX7ABiZUXBsGvIvguQApNQQva9RMmTvZ2dpVUls+tX/UD7GN/Y8Ws05w6rQF+9vyzg1vZjbvMRJhXiRSU8DpTFFe0QE8S6SfPkOkZoktrB2oAhZWrwljxOPmchiSMYOWNoxNuruFU5vWeXdsojiUon345113dBBQBmTYlTimgdB8nfPo4WjaNFgN9OMEkJ02dnadVt5ki54Esqy+bzKJltVhSPbI3iN2zCyMTeXNCuG7Omm2Zok7PR2+R7jvD8ouruHhmCrB5jVZeYxLdrTP4sr4Vtd9g4MA4qc4c+6cu5NPamfw4P59t2WrA4YdXKkASf7SFivo6PDdEPmf1fRM++zp1bH/0r4I1dD1ODtOWaW4IsvPjL7nqXhloQiSPwjjgMYkMASyGEBkjhISCQwkwzve/18AbT+pk8pVY4UacQi9y+gyZ0eRAw4qHa89LXEx1LXMSPfhDJYRb59BtlLKg2WPT2l6qYl1svtGkrLYckyA1S+t5+2ATm37WCui0LSynsckDNH5zTxAchbQtkx08hDHYiW6NgC0enHBzEZ102UDH8QORdEckjEzZrNWkRydzyx17uGnDXqbUnGZ6dRPjSY91q2TqwjFuvTxLo5Zn5Qo/pumRSFcTLQtybEhGE0fQrDhhJ0VvH2lTnnHPhGtsmWan469apERjI2MH3qN7+7MEfH6ql29CbV7PvsMG32k6yU2XDhEKyZw66eJaRdrXR7CzCcqUNC3zwgymPJRCH4KRRLINimpL14A5Y4GDeOqbsPRVcfuN7Xj44pav/hFfrNT2kr2rsqf2Ibp5pEA14ZIImUyW3t5REkkTXRGQ/DGGhtLginhqCWknQDE5hKf5UFSF9Lj020Q2ul5V1AR2hr+8vuP8Vlc2zMPRxoSjnx7XBC14sDoydahSGq7KdO/HFyrBchxCVfX4fDKp4T7SCQejYODZLrYgIqgKFsNIgQqEYob8mW6yiUyb7Z64LVK/+B85xznnJ3AWzqTzuIX46mr5wLs+UUTyIriBCjRNxguHMJIFDLEEvXEOVRWnSJ0+jCd4CJoGjoedM1CLcXQziW3nMV2TSMBeOx7vWZvPt1r+cMPzE8KunaUkFn0vNrvtqXj34c1W6gzxlEQ6naIoBahtnkMwoFMwIVzSRNguMt53Aj2s4nkSlgPoGqLkICsRNF0gl8rYWuP8+11/w/OOJDEhHPKLCIpOXmi+M9AgP+maiesLifF2T1Rn5ZNj5Lo/Qc/GcPMmhdoqlEgIGzCK4PiCmJKK68p4KfF3qYGuF0qCRUkJTzleUbvQyWRTuE5xYthxQbBs7EISAbkzUFG3VfXXbK2YFi3X/eryfKKnqVBItNjJxDzH8erddC4SqWwcN5WyTtlyO1RP/Lh3eHD76MB40swmiDVJyDLYRhpc5+ub6tse/wWKbvSQEAw1awAAAABJRU5ErkJggg==" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime/runtime.min.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__slideInRight');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow_init.js"></script><script async src="/js/ali_font.js"></script><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item swiper_container_card" style="height: auto;width: 100%"><div id="random"><div id="random-banner"><canvas id="peoplecanvas"></canvas></div><a id="random-hover" style="width:100%;height:auto;" href="javascript:toRandomPost()" rel="external nofollow noreferrer" one-link-mark="yes"><i class="fa fa-paper-plane" style="margin-left:10px"></i><div style="margin-left:10px">随便逛逛<i class="fa-solid fa-arrow-right" style="margin-left:10px"></i></div></a></div><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/4a17b156.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" alt="" onerror="this.src=https://cdn.cbd.int/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-01-12</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/4a17b156.html&quot;);" href="javascript:void(0);" alt="">Hello World</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/4a17b156.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/js/swiper.min.js"></script><script defer data-pjax src="https://cdn.cbd.int/hexo-butterfly-swiper-anzhiyu@1.0.4/lib/swiper_init.js"></script><script data-pjax src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/gsap/3.9.1/gsap.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper-anzhiyu@1.0.4/lib/people.min.js"></script><script async src="/anzhiyu/random.js"></script><script data-pjax src="https://cdn.cbd.int/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 280px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("https://calendar.shallowrecall.top/api?shallowrecall",['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'],'shallowrecall')
+    }
+  </script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
