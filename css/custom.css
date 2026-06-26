@@ -102,6 +102,801 @@ svg.icon.faa-tada {
     background: rgba(255, 255, 255, 0.9);
 }
 
+/* 首页轮播旁边的随机文章入口 */
+#recent-posts > .swiper_container_card {
+    gap: 14px;
+    align-items: center;
+}
+
+#recent-posts > .swiper_container_card #swiper_container {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#recent-posts > .swiper_container_card #random {
+    display: block !important;
+    flex: 0 0 clamp(220px, 30%, 280px);
+    height: 180px;
+    max-width: 280px;
+    margin-left: 10px;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(35, 56, 120, 0.16);
+    transform: translateZ(0);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    isolation: isolate;
+}
+
+#recent-posts > .swiper_container_card #random:hover {
+    box-shadow: 0 16px 34px rgba(35, 56, 120, 0.22);
+    transform: translateY(-2px);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"],
+#recent-posts > .swiper_container_card #random[data-design="people"]:hover {
+    box-shadow: 0 18px 36px rgba(58, 94, 210, 0.26);
+    filter: none !important;
+    transform: none;
+    backdrop-filter: none !important;
+}
+
+#recent-posts > .swiper_container_card #random::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(10, 20, 54, 0.36));
+}
+
+#recent-posts > .swiper_container_card #random::after {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: -60%;
+    z-index: 2;
+    width: 46%;
+    height: 170%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.26), transparent);
+    transform: rotate(18deg);
+    animation: random-card-shine 5.8s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random-banner {
+    height: 100% !important;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+#recent-posts > .swiper_container_card #peoplecanvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.82;
+    filter: saturate(1.05) contrast(1.04);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"] #random-banner,
+#recent-posts > .swiper_container_card #random[data-design="people"]:hover #random-banner,
+#recent-posts > .swiper_container_card #random[data-design="people"] #peoplecanvas,
+#recent-posts > .swiper_container_card #random[data-design="people"]:hover #peoplecanvas {
+    filter: none !important;
+    backdrop-filter: none !important;
+    opacity: 0 !important;
+}
+
+#recent-posts > .swiper_container_card #random-hover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    opacity: 1;
+    color: #fff;
+    z-index: 6;
+    padding: 0 1.2rem;
+    background: transparent;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+#recent-posts > .swiper_container_card #random-hover:hover {
+    opacity: 1;
+    color: #fff;
+    background: transparent;
+    text-decoration: none;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"] #random-hover,
+#recent-posts > .swiper_container_card #random[data-design="people"] #random-hover:hover {
+    filter: none !important;
+    backdrop-filter: none !important;
+    background: transparent !important;
+}
+
+#recent-posts > .swiper_container_card #random-hover > i {
+    display: none;
+}
+
+#recent-posts > .swiper_container_card #random-hover > div {
+    display: none;
+}
+
+#recent-posts > .swiper_container_card #random-hover .rc-copy {
+    position: absolute;
+    left: 22px;
+    right: 72px;
+    bottom: 18px;
+    color: #fff;
+}
+
+#recent-posts > .swiper_container_card #random-hover .rc-copy strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 0.42em;
+    line-height: 1.2;
+    letter-spacing: 0;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+}
+
+#recent-posts > .swiper_container_card #random-hover .rc-copy small {
+    display: block;
+    margin-top: 7px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+#recent-posts > .swiper_container_card #random-hover .rc-arrow {
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    transition: transform 0.28s ease, background 0.28s ease;
+}
+
+#recent-posts > .swiper_container_card #random-hover:hover .rc-arrow {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateX(4px);
+}
+
+#recent-posts > .swiper_container_card #random .rc-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+#recent-posts > .swiper_container_card #random .rc-switcher {
+    display: none !important;
+}
+
+#recent-posts > .swiper_container_card #random .rc-switch {
+    display: none !important;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="portal"] {
+    background:
+        radial-gradient(circle at 50% 45%, rgba(100, 211, 255, 0.3), transparent 34%),
+        linear-gradient(135deg, #17224e, #3d55e7 62%, #84dbff);
+    box-shadow: 0 18px 36px rgba(36, 81, 196, 0.26);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="portal"] .rc-portal-stage::before,
+#recent-posts > .swiper_container_card #random[data-design="portal"] .rc-portal-stage::after {
+    content: "";
+    position: absolute;
+    inset: 36px 75px 48px;
+    border: 2px solid rgba(165, 235, 255, 0.82);
+    border-radius: 50%;
+    box-shadow: 0 0 18px rgba(75, 218, 255, 0.72), inset 0 0 18px rgba(75, 218, 255, 0.5);
+    animation: rc-portal-spin 7s linear infinite;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="portal"] .rc-portal-stage::after {
+    inset: 51px 91px 63px;
+    border-color: rgba(255, 255, 255, 0.72);
+    border-style: dashed;
+    animation-duration: 4.6s;
+    animation-direction: reverse;
+}
+
+#recent-posts > .swiper_container_card #random .rc-portal-core {
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.96), rgba(104, 226, 255, 0.45) 35%, rgba(79, 82, 255, 0.1) 66%, transparent 72%);
+    transform: translate(-50%, -50%);
+    animation: rc-portal-breathe 2.6s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 0 10px rgba(110, 231, 255, 0.95);
+    animation: rc-sparkle 3.6s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-spark:nth-child(2) {
+    left: 48px;
+    top: 52px;
+}
+
+#recent-posts > .swiper_container_card #random .rc-spark:nth-child(3) {
+    right: 42px;
+    top: 66px;
+    animation-delay: 0.9s;
+}
+
+#recent-posts > .swiper_container_card #random .rc-spark:nth-child(4) {
+    left: 92px;
+    bottom: 54px;
+    animation-delay: 1.8s;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="terminal"] {
+    border: 1px solid rgba(87, 255, 224, 0.26);
+    background:
+        linear-gradient(transparent 0 50%, rgba(96, 239, 255, 0.08) 50% 100%) 0 0 / 100% 8px,
+        radial-gradient(circle at 85% 20%, rgba(78, 255, 198, 0.16), transparent 30%),
+        linear-gradient(135deg, #07111f, #102b42 60%, #174960);
+    box-shadow: 0 18px 36px rgba(0, 60, 92, 0.24);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="terminal"]::after {
+    background: linear-gradient(90deg, transparent, rgba(72, 255, 225, 0.16), transparent);
+    animation: rc-terminal-scan 3.8s linear infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-terminal-stage {
+    left: 24px;
+    top: 24px;
+    display: grid;
+    gap: 9px;
+    color: rgba(160, 255, 235, 0.84);
+    font-family: Consolas, "Cascadia Mono", monospace;
+    font-size: 13px;
+}
+
+#recent-posts > .swiper_container_card #random .rc-terminal-stage span:last-child::after {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    margin-left: 5px;
+    background: #73ffe7;
+    vertical-align: -2px;
+    animation: rc-blink 1s step-end infinite;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="plane"] {
+    background:
+        radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.55), transparent 24%),
+        linear-gradient(135deg, #4c7dff, #5fc4ff 52%, #f7b6d7);
+    box-shadow: 0 18px 36px rgba(69, 126, 255, 0.24);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="plane"]::before {
+    background:
+        linear-gradient(130deg, transparent 0 26%, rgba(255, 255, 255, 0.2) 27% 28%, transparent 29% 100%),
+        linear-gradient(150deg, transparent 0 56%, rgba(255, 255, 255, 0.16) 57% 58%, transparent 59% 100%);
+    animation: rc-clouds 9s linear infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-plane-shape {
+    position: absolute;
+    left: 80px;
+    top: 44px;
+    width: 88px;
+    height: 62px;
+    background: linear-gradient(135deg, #ffffff, #cce7ff);
+    clip-path: polygon(0 48%, 100% 0, 65% 100%, 48% 62%, 28% 78%);
+    filter: drop-shadow(0 12px 16px rgba(38, 70, 120, 0.2));
+    animation: rc-plane-float 3.2s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="box"] {
+    background:
+        radial-gradient(circle at 50% 40%, rgba(255, 225, 120, 0.32), transparent 34%),
+        linear-gradient(135deg, #22133f, #7542d7 58%, #ff9077);
+    box-shadow: 0 18px 36px rgba(116, 66, 215, 0.26);
+}
+
+#recent-posts > .swiper_container_card #random .rc-confetti {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 26% 28%, #fff 0 2px, transparent 3px),
+        radial-gradient(circle at 72% 26%, #ffe66d 0 2px, transparent 3px),
+        radial-gradient(circle at 78% 62%, #78ffe0 0 2px, transparent 3px),
+        radial-gradient(circle at 20% 72%, #ff9fc7 0 2px, transparent 3px);
+    animation: rc-confetti-rise 4s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-box-shape {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 82px;
+    height: 70px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffd76b, #ff7a98);
+    box-shadow: 0 0 26px rgba(255, 213, 107, 0.45), 0 18px 28px rgba(63, 27, 94, 0.25);
+    transform: translate(-50%, -50%) rotate(-3deg);
+    animation: rc-box-wiggle 3s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-box-shape::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    right: -7px;
+    top: -16px;
+    height: 22px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #fff08f, #ff93aa);
+    transform-origin: 20% 100%;
+    transition: transform 0.28s ease;
+}
+
+#recent-posts > .swiper_container_card #random:hover .rc-box-shape::before {
+    transform: rotate(-12deg) translateY(-5px);
+}
+
+#recent-posts > .swiper_container_card #random .rc-box-shape::after {
+    content: "?";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 40px;
+    font-weight: 900;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="stars"] {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 28px 28px,
+        radial-gradient(circle at 68% 38%, rgba(94, 234, 212, 0.26), transparent 28%),
+        linear-gradient(135deg, #07132e, #16245d 58%, #2b6cb0);
+    box-shadow: 0 18px 36px rgba(27, 49, 120, 0.26);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="stars"]::before {
+    background:
+        radial-gradient(circle at 24% 32%, #ffffff 0 2px, transparent 3px),
+        radial-gradient(circle at 46% 46%, #78ffe0 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 28%, #ffffff 0 2px, transparent 3px),
+        radial-gradient(circle at 78% 68%, #a5b4fc 0 2px, transparent 3px);
+    animation: rc-stars-pulse 2.6s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="stars"]::after {
+    left: 68px;
+    top: 54px;
+    width: 146px;
+    height: 62px;
+    background:
+        linear-gradient(25deg, transparent 0 48%, rgba(125, 255, 232, 0.72) 49% 51%, transparent 52%),
+        linear-gradient(-18deg, transparent 0 48%, rgba(165, 180, 252, 0.58) 49% 51%, transparent 52%);
+    filter: drop-shadow(0 0 10px rgba(94, 234, 212, 0.58));
+    opacity: 0.9;
+    transform: none;
+    animation: rc-jump-line 3.3s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-warp-dot {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, #78ffe0 36%, rgba(120, 255, 224, 0) 68%);
+    animation: rc-warp 2.2s ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"] {
+    --rc-look-x: 0px;
+    --rc-look-y: 0px;
+    --rc-tilt: 0deg;
+    background:
+        radial-gradient(circle at 30% 18%, rgba(255, 255, 255, 0.18), transparent 20%),
+        radial-gradient(circle at 82% 24%, rgba(124, 247, 200, 0.2), transparent 22%),
+        linear-gradient(135deg, #263a8b, #5b7dff 52%, #55d6ff);
+    box-shadow: 0 18px 36px rgba(58, 94, 210, 0.26);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"]::before {
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 / 24px 24px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 78%);
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"]::after {
+    display: none;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"] #random-hover .rc-copy {
+    right: 18px;
+}
+
+#recent-posts > .swiper_container_card #random[data-design="people"] .rc-person {
+    z-index: 3;
+    animation: rc-person-bob var(--speed, 3s) ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-person {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    height: var(--h);
+    transform: none;
+    transform-origin: 50% 100%;
+    animation: rc-person-bob var(--speed, 3s) ease-in-out infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-person::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    border-radius: 44% 44% 18% 18%;
+    background:
+        radial-gradient(circle at 35% 18%, rgba(255, 255, 255, 0.5), transparent 18%),
+        linear-gradient(135deg, var(--c), var(--d));
+    box-shadow: inset 0 -12px 20px rgba(22, 32, 78, 0.14), 0 12px 22px rgba(19, 34, 90, 0.22);
+    transform: translateX(-50%);
+}
+
+#recent-posts > .swiper_container_card #random .rc-head {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 84%;
+    height: 66%;
+    border-radius: 48% 48% 42% 42%;
+    background:
+        radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.48), transparent 19%),
+        linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 72%, #fff));
+    box-shadow: 0 8px 16px rgba(19, 34, 90, 0.18);
+    transform: translateX(-50%);
+}
+
+#recent-posts > .swiper_container_card #random .rc-eye {
+    position: absolute;
+    top: 45%;
+    width: clamp(10px, 30%, 16px);
+    height: clamp(10px, 30%, 16px);
+    overflow: hidden;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: inset 0 -1px 2px rgba(18, 26, 58, 0.2);
+    transform: translateY(-50%);
+}
+
+#recent-posts > .swiper_container_card #random .rc-eye:first-child {
+    left: 22%;
+}
+
+#recent-posts > .swiper_container_card #random .rc-eye:nth-child(2) {
+    right: 22%;
+}
+
+#recent-posts > .swiper_container_card #random .rc-eye b {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46%;
+    height: 46%;
+    border-radius: 50%;
+    background: #172033;
+    transform: translate(calc(-50% + var(--rc-look-x)), calc(-50% + var(--rc-look-y)));
+    transition: transform 0.14s ease;
+}
+
+#recent-posts > .swiper_container_card #random .rc-eye::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--c);
+    transform: translateY(-105%);
+}
+
+#recent-posts > .swiper_container_card #random .rc-person.is-blinking .rc-eye::after {
+    animation: rc-mimic-blink 0.22s ease-in-out;
+}
+
+#recent-posts > .swiper_container_card #random .rc-p1 {
+    --x: 28px;
+    --y: 42px;
+    --w: 52px;
+    --h: 88px;
+    --c: #ff6b9a;
+    --d: #ffb86b;
+    --speed: 3.2s;
+}
+
+#recent-posts > .swiper_container_card #random .rc-p2 {
+    --x: 82px;
+    --y: 22px;
+    --w: 62px;
+    --h: 108px;
+    --c: #55d6ff;
+    --d: #5b7dff;
+    --speed: 3.6s;
+}
+
+#recent-posts > .swiper_container_card #random .rc-p3 {
+    --x: 144px;
+    --y: 40px;
+    --w: 54px;
+    --h: 92px;
+    --c: #7cf7c8;
+    --d: #35a3ff;
+    --speed: 3.1s;
+}
+
+#recent-posts > .swiper_container_card #random .rc-p4 {
+    --x: 198px;
+    --y: 54px;
+    --w: 40px;
+    --h: 74px;
+    --c: #ffd166;
+    --d: #ff7a90;
+    --speed: 3.9s;
+}
+
+#recent-posts > .swiper_container_card #random .rc-mimic-orbit {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 52px;
+    height: 52px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 50%;
+    box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.16);
+    animation: rc-portal-spin 8s linear infinite;
+}
+
+#recent-posts > .swiper_container_card #random .rc-mimic-orbit::before,
+#recent-posts > .swiper_container_card #random .rc-mimic-orbit::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+}
+
+#recent-posts > .swiper_container_card #random .rc-mimic-orbit::before {
+    left: 4px;
+    top: 9px;
+}
+
+#recent-posts > .swiper_container_card #random .rc-mimic-orbit::after {
+    right: 6px;
+    bottom: 8px;
+}
+
+@keyframes random-card-shine {
+    0%,
+    52% {
+        left: -60%;
+    }
+
+    72%,
+    100% {
+        left: 118%;
+    }
+}
+
+@keyframes random-plane-float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes rc-portal-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rc-portal-breathe {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0.68;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1;
+    }
+}
+
+@keyframes rc-sparkle {
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes rc-terminal-scan {
+    0%,
+    48% {
+        left: -40%;
+    }
+
+    100% {
+        left: 110%;
+    }
+}
+
+@keyframes rc-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes rc-clouds {
+    to {
+        transform: translateX(44px);
+    }
+}
+
+@keyframes rc-plane-float {
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(-18deg);
+    }
+
+    50% {
+        transform: translate(10px, -8px) rotate(-12deg);
+    }
+}
+
+@keyframes rc-box-wiggle {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(-3deg);
+    }
+
+    50% {
+        transform: translate(-50%, -54%) rotate(3deg);
+    }
+}
+
+@keyframes rc-confetti-rise {
+    0%,
+    100% {
+        transform: translateY(8px);
+        opacity: 0.52;
+    }
+
+    50% {
+        transform: translateY(-8px);
+        opacity: 1;
+    }
+}
+
+@keyframes rc-stars-pulse {
+    0%,
+    100% {
+        opacity: 0.56;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes rc-jump-line {
+    0%,
+    100% {
+        opacity: 0.42;
+        transform: scaleX(0.88);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleX(1.05);
+    }
+}
+
+@keyframes rc-warp {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.88);
+        opacity: 0.72;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.18);
+        opacity: 1;
+    }
+}
+
+@keyframes rc-mimic-shine {
+    0%,
+    48% {
+        left: -42%;
+    }
+
+    68%,
+    100% {
+        left: 114%;
+    }
+}
+
+@keyframes rc-mimic-blink {
+    0%,
+    100% {
+        transform: translateY(-105%);
+    }
+
+    45%,
+    55% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes rc-person-bob {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -5px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    #recent-posts > .swiper_container_card {
+        flex-direction: column !important;
+    }
+
+    #recent-posts > .swiper_container_card #swiper_container {
+        width: 100% !important;
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    #recent-posts > .swiper_container_card #random {
+        display: none !important;
+    }
+}
+
 /* 首页侧栏卡片 */
 #aside-content .card-widget {
     background: rgba(255, 255, 255, 0.9);
