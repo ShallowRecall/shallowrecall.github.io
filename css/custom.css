@@ -1895,3 +1895,8 @@ svg.icon {
     left: 0;
     top: 0;
 }
+
+/* 文章页隐藏看板娘，避免遮挡技术正文 */
+body:has(article.post-content) #live2d-widget {
+    display: none !important;
+}
