@@ -1900,3 +1900,79 @@ svg.icon {
 body:has(article.post-content) #live2d-widget {
     display: none !important;
 }
+
+/* Mermaid 交互查看器 */
+.mermaid-wrap.is-zoomable {
+    position: relative;
+    padding: 42px 0 0;
+    margin: 1.2rem 0 1.6rem;
+    text-align: left;
+}
+.mermaid-wrap.is-zoomable .mermaid-toolbar {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 3;
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+    border-radius: 10px;
+    background: var(--anzhiyu-card-bg, #fff);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+.mermaid-wrap.is-zoomable .mermaid-toolbar button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid rgba(127, 127, 127, 0.24);
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+.mermaid-wrap.is-zoomable .mermaid-toolbar button:hover {
+    background: rgba(127, 127, 127, 0.14);
+}
+.mermaid-wrap.is-zoomable .mermaid-viewport {
+    width: 100%;
+    height: clamp(280px, 52vh, 520px);
+    overflow: hidden;
+    border: 1px solid rgba(127, 127, 127, 0.22);
+    border-radius: 12px;
+    background: rgba(127, 127, 127, 0.04);
+    overscroll-behavior: contain;
+    touch-action: none;
+}
+.mermaid-wrap.is-zoomable .mermaid-viewport > svg {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    cursor: grab;
+    user-select: none;
+}
+.mermaid-wrap.is-zoomable .mermaid-viewport > svg:active {
+    cursor: grabbing;
+}
+.mermaid-wrap.is-zoomable:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 52px 24px 24px;
+    background: var(--anzhiyu-card-bg, #fff);
+}
+.mermaid-wrap.is-zoomable:fullscreen .mermaid-viewport {
+    height: calc(100vh - 76px);
+}
+@media (max-width: 768px) {
+    .mermaid-wrap.is-zoomable .mermaid-viewport {
+        height: 340px;
+    }
+    .mermaid-wrap.is-zoomable:fullscreen {
+        padding: 48px 12px 12px;
+    }
+    .mermaid-wrap.is-zoomable:fullscreen .mermaid-viewport {
+        height: calc(100vh - 60px);
+    }
+}
