@@ -173,7 +173,7 @@
 <h2 id="30-秒结论"><a href="#30-秒结论" class="headerlink" title="30 秒结论"></a>30 秒结论</h2><blockquote>
 <p><strong>先记住这条因果链</strong><br>系统盘所在的 SATA 控制器被误开直通 → ESXi 看不到 HBA 和磁盘 → BOOTBANK / OSDATA 降级到内存盘 → VIB 验签失败只是表象。</p>
 </blockquote>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/posts/esxi-sata-passthrough-disaster-review/esxi-storage-failure-chain.webp" width="620" alt="esxi-storage-failure-chain"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/posts/esxi-sata-passthrough-disaster-review/esxi-storage-failure-chain.webp" width="620" alt="esxi-storage-failure-chain"></p>
 <p><em>图 1：从症状到恢复的完整因果链。可在 <a target="_blank" rel="noopener" href="https://www.processon.com/diagraming/6adeba526a552a315f425e6b">ProcessOn</a> 查看或继续编辑。</em></p>
 <h2 id="0-背景"><a href="#0-背景" class="headerlink" title="0. 背景"></a>0. 背景</h2><blockquote>
 <p><strong>适用版本与验证边界</strong><br>本文基于 J4125、16GB 内存、ESXi 8.0.2 的一次真实故障。关键命令、设备归属和内核时间线来自本次真机排障；不同 ESXi 版本或硬件平台执行前，请先核对命令行为并保留配置备份。</p>

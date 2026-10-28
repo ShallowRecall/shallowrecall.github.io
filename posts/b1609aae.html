@@ -295,14 +295,14 @@
 </ol>
 </li>
 <li><p>闵可夫斯基距离包含那些类型，他们之间的关系如何？如何编程实现？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107104243479.png" alt="image-20240107104243479"  /></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107104243479.webp" alt="image-20240107104243479"  /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">minkowski_distance</span>(<span class="params">x, y, p=<span class="number">2</span></span>):</span><br><span class="line">    <span class="keyword">if</span> p == np.inf:</span><br><span class="line">        <span class="keyword">return</span> np.<span class="built_in">max</span>(np.<span class="built_in">abs</span>(x - y))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> np.power(np.<span class="built_in">sum</span>(np.<span class="built_in">abs</span>(x - y) ** p), <span class="number">1</span>/p)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例用法</span></span><br><span class="line">point1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">point2 = np.array([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line">p1_distance = minkowski_distance(point1, point2, p=<span class="number">1</span>)  <span class="comment"># 曼哈顿距离</span></span><br><span class="line">p2_distance = minkowski_distance(point1, point2, p=<span class="number">2</span>)  <span class="comment"># 欧几里德距离</span></span><br><span class="line">p_inf_distance = minkowski_distance(point1, point2, p=np.inf)  <span class="comment"># 切比雪夫距离</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;曼哈顿距离:&quot;</span>, p1_distance)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;欧几里德距离:&quot;</span>, p2_distance)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;切比雪夫距离:&quot;</span>, p_inf_distance)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>什么是马氏距离？它与欧氏距离有什么关系？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107104452368.png" alt="image-20240107104452368"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107104452368.webp" alt="image-20240107104452368"></p>
 </li>
 <li><p>什么是余弦距离和余弦相似度？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107104840688.png" alt="image-20240107104840688"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107104840688.webp" alt="image-20240107104840688"></p>
 </li>
 <li><p>什么是汉明距离？</p>
 <p>汉明距离是指两个等长字符串之间的汉明距离，即两个字符串在相同位置上不同字符的个数。汉明距离以理查德·卫斯里·汉明的名字命名，是一种用于比较两个二进制数据字符串的度量。在信息论中，汉明距离也用于表示两个等长字符串之间的相似度，即需要替换多少个字符才能将一个字符串变成另一个字符串。</p>
@@ -312,34 +312,34 @@
 <p>总之，汉明距离是一种用于比较两个字符串或数据块差异程度的度量，常用于数据传输差错控制编码和信息论等领域。</p>
 </li>
 <li><p>什么是皮尔森距离？它与余弦距离是什么关系？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110044522.png" alt="image-20240107110044522"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110044522.webp" alt="image-20240107110044522"></p>
 </li>
 <li><p>什么是斯皮尔曼距离？什么是肯德尔距离？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110135794.png" alt="image-20240107110135794"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110135794.webp" alt="image-20240107110135794"></p>
 </li>
 <li><p>什么是凸集分离定理？</p>
 <p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110236650.png" alt="image-20240107110236650"></p>
 </li>
 <li><p>函数的凹凸性与极值之间的关系是什么？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110329504.png" alt="image-20240107110329504"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110329504.webp" alt="image-20240107110329504"></p>
 </li>
 <li><p>什么是激活函数，其作用是什么？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110423525.png" alt="image-20240107110423525"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110423525.webp" alt="image-20240107110423525"></p>
 </li>
 <li><p>函数的连续与可导的关系是什么？函数可导的充要条件是什么?</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110515862.png" alt="image-20240107110515862"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110515862.webp" alt="image-20240107110515862"></p>
 </li>
 <li><p>函数导数与凹凸性的关系如何？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110605183.png" alt="image-20240107110605183"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110605183.webp" alt="image-20240107110605183"></p>
 </li>
 <li><p>方向导数、梯度、散度的定义是什么？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110650782.png" alt="image-20240107110650782"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110650782.webp" alt="image-20240107110650782"></p>
 </li>
 <li><p>雅可比矩阵、Hessian矩阵的定义是什么？Hessan矩阵和Jacobi矩阵的关系如何？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110759474.png" alt="image-20240107110759474"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110759474.webp" alt="image-20240107110759474"></p>
 </li>
 <li><p>什么是全概率？什么是贝叶斯公式？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107110841324.png" alt="image-20240107110841324"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107110841324.webp" alt="image-20240107110841324"></p>
 </li>
 <li><p>如何编程实现两个数组的相关性？</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> pearsonr, spearmanr</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建两个示例数组</span></span><br><span class="line">array1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">array2 = np.array([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算皮尔逊相关系数</span></span><br><span class="line">pearson_corr, _ = pearsonr(array1, array2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;皮尔逊相关系数:&quot;</span>, pearson_corr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算斯皮尔曼相关系数</span></span><br><span class="line">spearman_corr, _ = spearmanr(array1, array2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;斯皮尔曼相关系数:&quot;</span>, spearman_corr)</span><br></pre></td></tr></table></figure>
@@ -352,31 +352,31 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> norm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义正态分布的均值和标准差</span></span><br><span class="line">mu_values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]  <span class="comment"># 不同均值</span></span><br><span class="line">sigma_values = [<span class="number">0.5</span>, <span class="number">1</span>, <span class="number">1.5</span>]  <span class="comment"># 不同标准差</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个x轴的值范围</span></span><br><span class="line">x = np.linspace(-<span class="number">5</span>, <span class="number">5</span>, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制不同参数下的正态分布曲线</span></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">8</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> mu <span class="keyword">in</span> mu_values:</span><br><span class="line">    <span class="keyword">for</span> sigma <span class="keyword">in</span> sigma_values:</span><br><span class="line">        <span class="comment"># 计算概率密度函数（PDF）</span></span><br><span class="line">        pdf = norm.pdf(x, loc=mu, scale=sigma)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 绘制曲线</span></span><br><span class="line">        label = <span class="string">f&quot;μ=<span class="subst">&#123;mu&#125;</span>, σ=<span class="subst">&#123;sigma&#125;</span>&quot;</span></span><br><span class="line">        plt.plot(x, pdf, label=label)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&#x27;不同参数下的正态分布曲线&#x27;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&#x27;随机变量值&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;概率密度&#x27;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>什么是参数估计？参数估计量应那些基本特性？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111229225.png" alt="image-20240107111229225"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111229225.webp" alt="image-20240107111229225"></p>
 </li>
 <li><p>什么是无偏估计样本？样本统计量的典型代表有哪些？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111305015.png" alt="image-20240107111305015"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111305015.webp" alt="image-20240107111305015"></p>
 </li>
 <li><p>自编码器有哪些部件组成？分别具有那些功能？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111426129.png" alt="image-20240107111426129"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111426129.webp" alt="image-20240107111426129"></p>
 </li>
 <li><p>联合熵、条件熵、交叉熵和相对熵是如何定义的？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111511582.png" alt="image-20240107111511582"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111511582.webp" alt="image-20240107111511582"></p>
 </li>
 <li><p>卷积与池化的定义和功能是什么？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111557806.png" alt="image-20240107111557806"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111557806.webp" alt="image-20240107111557806"></p>
 </li>
 <li><p>什么是过拟合与欠拟合问题？如何避免过拟合与欠拟合？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111647208.png" alt="image-20240107111647208"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111647208.webp" alt="image-20240107111647208"></p>
 </li>
 <li><p>什么是奥卡姆剃刀原则？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111730503.png" alt="image-20240107111730503"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111730503.webp" alt="image-20240107111730503"></p>
 </li>
 <li><p>硬正则化和软正则化分别有那些方法？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111828990.png" alt="image-20240107111828990"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111828990.webp" alt="image-20240107111828990"></p>
 </li>
 <li><p>数据归一化、标准化的左右是什么？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107111948379.png" alt="image-20240107111948379"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107111948379.webp" alt="image-20240107111948379"></p>
 <p>数据归一化和标准化的作用如下：</p>
 <ol>
 <li>数据归一化：将数据转换到特定的范围，如0-1之间，以便更好地进行数据处理和分析。归一化可以消除数据的规模和范围对分析的影响，使得不同量级的特征具有相同的尺度，从而避免某些特征在训练时占据主导地位。<br>2.<br>数据标准化：将数据按照一定的数学公式进行转换，使得数据的平均值为0，标准差为1，从而消除数据的量纲和单位对分析的影响。标准化可以使得不同量级的特征具有相同的尺度，避免某些特征在训练时占据主导地位。同时，标准化还可以使得数据更加符合正态分布，从而更好地进行机器学习模型的训练和预测。</li>
@@ -396,7 +396,7 @@
 <li>VC维是衡量模型复杂度和学习能力的指标，它与期望风险、经验风险和置信风险都有关系。一般来说，如果模型的VC维越高，则其表示能力越强，但过拟合的风险也越大，这可能会导致期望风险和经验风险的差异增大，从而增加置信风险。</li>
 </ul>
 <p>在实际应用中，需要根据具体问题和数据特性来选择合适的模型和算法，以平衡各种风险并获得最佳的预测效果。</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107112332136.png" alt="image-20240107112332136"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107112332136.webp" alt="image-20240107112332136"></p>
 <p>这些概念之间的关系可以总结如下：</p>
 <ul>
 <li>经验风险是在训练数据上测量的模型性能，期望风险是在整个数据分布上的期望性能，而置信风险是期望风险的一个上界估计，用于表示不确定性。</li>
@@ -415,7 +415,7 @@
 </ol>
 </li>
 <li><p>无约束优化与约束优化之间具有什么关系？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107112631192.png" alt="image-20240107112631192"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107112631192.webp" alt="image-20240107112631192"></p>
 </li>
 <li><p>什么是梯度下降法、牛顿法、拟牛顿法和坐标下降法？</p>
 <ol>
@@ -481,13 +481,13 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成示例数据</span></span><br><span class="line">np.random.seed(<span class="number">0</span>)</span><br><span class="line">X = <span class="number">2</span> * np.random.rand(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line">y = <span class="number">4</span> + <span class="number">3</span> * X + np.random.randn(<span class="number">100</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化模型参数</span></span><br><span class="line">theta = np.random.randn(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义学习率和迭代次数</span></span><br><span class="line">learning_rate = <span class="number">0.1</span></span><br><span class="line">num_iterations = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量梯度下降训练模型</span></span><br><span class="line">m = <span class="built_in">len</span>(X)  <span class="comment"># 训练样本数量</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> iteration <span class="keyword">in</span> <span class="built_in">range</span>(num_iterations):</span><br><span class="line">    <span class="comment"># 计算梯度</span></span><br><span class="line">    gradients = -<span class="number">2</span>/m * X.T.dot(y - X.dot(theta))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 更新参数</span></span><br><span class="line">    theta = theta - learning_rate * gradients</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印训练后的参数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;训练后的参数 theta:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(theta)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>查准率和查全率是如何定义的？它们的关系是怎样的？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107113500900.png" alt="image-20240107113500900"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107113500900.webp" alt="image-20240107113500900"></p>
 </li>
 <li><p>什么是P-R曲线？如何根据P-R曲线判断模型性能优劣？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107113549809.png" alt="image-20240107113549809"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107113549809.webp" alt="image-20240107113549809"></p>
 </li>
 <li><p>什么是ROC曲线？如何根据ROC曲线判断模型性能优劣？</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/2024/1/image-20240107113622263.png" alt="image-20240107113622263"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shallowrecall.top/images/optimized/2024/1/image-20240107113622263.webp" alt="image-20240107113622263"></p>
 </li>
 <li><p>什么是混淆矩阵？混淆矩阵主要由哪些元素构成？</p>
 <p>混淆矩阵（Confusion Matrix），也称为误差矩阵（Error Matrix）或分类表（Contingency Table），是用于评估二分类模型性能的重要工具。它主要由以下四个元素构成：</p>
