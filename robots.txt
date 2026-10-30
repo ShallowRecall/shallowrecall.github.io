@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.shallowrecall.top/sitemap.xml
+Sitemap: https://www.shallowrecall.top/baidusitemap.xml
