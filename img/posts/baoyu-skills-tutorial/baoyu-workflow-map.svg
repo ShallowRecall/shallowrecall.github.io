@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">宝玉 Skills 内容工作流地图</title>
+  <desc id="desc">从左到右依次为来源、Markdown、排版、配图、压缩、人工核验、博客构建。社交发布是独立分支，必须单独确认，不自动执行。</desc>
+  <defs>
+    <style>
+      text{font-family:'Microsoft YaHei','Noto Sans CJK SC',sans-serif;fill:#172E46}
+      .name{font-size:29px;font-weight:700;text-anchor:middle}.note{font-size:21px;fill:#526473;text-anchor:middle}
+      .arrow{fill:none;stroke:#168879;stroke-width:3;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#168879" stroke-width="1.5"/></marker>
+    <marker id="coral" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#BD604D" stroke-width="1.5"/></marker>
+  </defs>
+  <rect width="1600" height="900" fill="#F7F3E9"/>
+  <rect x="64" y="65" width="9" height="31" fill="#168879"/>
+  <text x="91" y="94" font-size="25" letter-spacing="3">BAOYU SKILLS / WORKFLOW MAP</text>
+  <text x="64" y="185" font-size="59" font-weight="700">一份内容，怎样走到发布之前？</text>
+  <text x="66" y="243" font-size="27" fill="#526473">以 Markdown 为中间稿，把内容处理、人工核验与发布授权分开。</text>
+  <path d="M66 293H1534" stroke="#D1D7CF" stroke-width="2"/>
+  <text x="66" y="339" font-size="22" fill="#168879">主流程 / 从左到右</text>
+  <g>
+    <path d="M244 456H272M454 456H482M664 456H692M874 456H902M1084 456H1112M1294 456H1322" class="arrow"/>
+    <rect x="66" y="376" width="178" height="169" rx="14" fill="#E3EDE6"/>
+    <rect x="276" y="376" width="178" height="169" rx="14" fill="#172E46"/>
+    <rect x="486" y="376" width="178" height="169" rx="14" fill="#FFFDF7" stroke="#D1D7CF"/>
+    <rect x="696" y="376" width="178" height="169" rx="14" fill="#FFFDF7" stroke="#D1D7CF"/>
+    <rect x="906" y="376" width="178" height="169" rx="14" fill="#FFFDF7" stroke="#D1D7CF"/>
+    <rect x="1116" y="376" width="178" height="169" rx="14" fill="#F4DCD2"/>
+    <rect x="1326" y="376" width="208" height="169" rx="14" fill="#E3EDE6"/>
+    <g font-size="20" text-anchor="middle">
+      <text x="155" y="414">01</text><text x="365" y="414" style="fill:#C6DED7">02</text><text x="575" y="414">03</text><text x="785" y="414">04</text><text x="995" y="414">05</text><text x="1205" y="414">06</text><text x="1430" y="414">07</text>
+    </g>
+    <text x="155" y="465" class="name">来源</text>
+    <text x="365" y="465" font-size="26" font-weight="700" text-anchor="middle" style="fill:#FFFDF7">Markdown</text>
+    <text x="575" y="465" class="name">排版</text><text x="785" y="465" class="name">配图</text><text x="995" y="465" class="name">压缩</text><text x="1205" y="465" class="name">人工核验</text><text x="1430" y="465" class="name">博客构建</text>
+    <text x="155" y="508" class="note">网页 / 原稿</text><text x="365" y="508" class="note" style="fill:#C6DED7">可编辑中间稿</text><text x="575" y="508" class="note">结构与格式</text><text x="785" y="508" class="note">匹配表达目标</text><text x="995" y="508" class="note">尺寸与体积</text><text x="1205" y="508" class="note">事实 / 版权</text><text x="1430" y="508" class="note">预览与构建检查</text>
+  </g>
+  <path d="M1205 545V631H1072" fill="none" stroke="#BD604D" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#coral)"/>
+  <rect x="66" y="599" width="681" height="171" rx="16" fill="#FFFDF7" stroke="#D1D7CF"/>
+  <text x="94" y="645" font-size="27" font-weight="700">人工核验不是可跳过的步骤</text>
+  <text x="94" y="692" font-size="23" fill="#526473">核对事实与引用，检查配图版权、文字和可读性。</text>
+  <text x="94" y="733" font-size="23" fill="#526473">构建通过 ≠ 已获准对外发布。</text>
+  <rect x="791" y="599" width="281" height="64" rx="32" fill="#F4DCD2" stroke="#BD604D"/>
+  <text x="931" y="640" font-size="26" font-weight="700" text-anchor="middle">社交发布 · 可选分支</text>
+  <text x="795" y="713" font-size="30" font-weight="700" style="fill:#A04C3D">必须单独确认</text>
+  <text x="795" y="753" font-size="23" fill="#526473">确认平台、账号和最终内容后，再执行发布。</text>
+  <path d="M66 818H1534" stroke="#D1D7CF" stroke-width="2"/>
+  <text x="66" y="861" font-size="21" fill="#526473">原创教程示意 · 流程可按任务裁剪，不代表工具自动串联</text>
+  <text x="1534" y="861" text-anchor="end" font-size="21" fill="#526473">内容处理 ≠ 发布授权</text>
+</svg>
