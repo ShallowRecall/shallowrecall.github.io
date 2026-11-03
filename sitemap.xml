@@ -381,6 +381,55 @@
   </url>
   
   <url>
+    <loc>https://www.shallowrecall.top/tags/Homelab/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/OpenList/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/OpenWrt/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/qBittorrent/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/NAS/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/Docker/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/Cloudflare/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.shallowrecall.top/tags/ESXi/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -388,7 +437,77 @@
   </url>
   
   <url>
-    <loc>https://www.shallowrecall.top/tags/Homelab/</loc>
+    <loc>https://www.shallowrecall.top/tags/All-in-One/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/%E7%9B%91%E6%8E%A7/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/Grafana/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/Uptime-Kuma/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/NetAlertX/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/Beszel/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/ntfy/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/Three-js/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/WebGL/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/CI-CD/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -514,125 +633,6 @@
   </url>
   
   <url>
-    <loc>https://www.shallowrecall.top/tags/OpenList/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/OpenWrt/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/qBittorrent/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/NAS/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/Docker/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/Cloudflare/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/All-in-One/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/%E7%9B%91%E6%8E%A7/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/Grafana/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/Uptime-Kuma/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/NetAlertX/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/Beszel/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/ntfy/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/Three-js/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/WebGL/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/CI-CD/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.shallowrecall.top/tags/Obsidian/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -641,20 +641,6 @@
   
   <url>
     <loc>https://www.shallowrecall.top/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/Homebrew/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -690,6 +676,20 @@
   
   <url>
     <loc>https://www.shallowrecall.top/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/Homebrew/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/tags/%E5%8C%85%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -747,7 +747,7 @@
   </url>
   
   <url>
-    <loc>https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B5%81%E7%A8%8B%E7%B1%BB/</loc>
+    <loc>https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -768,7 +768,14 @@
   </url>
   
   <url>
-    <loc>https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/</loc>
+    <loc>https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B5%81%E7%A8%8B%E7%B1%BB/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -782,14 +789,14 @@
   </url>
   
   <url>
-    <loc>https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%8D%9A%E5%AE%A2/%E5%B7%A5%E4%BD%9C%E6%B5%81/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E5%8D%9A%E5%AE%A2/%E5%B7%A5%E4%BD%9C%E6%B5%81/</loc>
+    <loc>https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -803,7 +810,7 @@
   </url>
   
   <url>
-    <loc>https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/</loc>
+    <loc>https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/SpringCloud/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -825,13 +832,6 @@
   
   <url>
     <loc>https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/SSM/</loc>
-    <lastmod>2026-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/SpringCloud/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
