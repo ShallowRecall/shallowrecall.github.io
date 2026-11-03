@@ -6,7 +6,7 @@
   <link href="https://www.shallowrecall.top/atom.xml" rel="self"/>
   
   <link href="https://www.shallowrecall.top/"/>
-  <updated>2026-11-03T12:54:17.565Z</updated>
+  <updated>2026-11-03T12:54:30.649Z</updated>
   <id>https://www.shallowrecall.top/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>Hexo 博客搭建记录</title>
     <link href="https://www.shallowrecall.top/posts/4a17b156.html"/>
     <id>https://www.shallowrecall.top/posts/4a17b156.html</id>
-    <published>2026-11-03T12:54:17.565Z</published>
-    <updated>2026-11-03T12:54:17.565Z</updated>
+    <published>2026-11-03T12:54:30.649Z</published>
+    <updated>2026-11-03T12:54:30.649Z</updated>
     
     <content type="html"><![CDATA[<p>这篇文章用来记录当前博客从初始化到逐步美化的过程，也作为首页文章卡片的示例：它包含分类、标签、摘要和封面，展示效果会比 Hexo 默认的 <code>Hello World</code> 更完整。</p><h2 id="博客结构"><a href="#博客结构" class="headerlink" title="博客结构"></a>博客结构</h2><p>这个站点基于 Hexo 构建，主题使用 Butterfly。文章主要放在 <code>source/_posts</code> 目录下，图片资源放在 <code>source/img</code> 目录下，主题相关配置集中在 <code>_config.butterfly.yml</code> 中。</p><p>常用配置包括：</p><ul><li>首页文章卡片封面</li><li>文章分类和标签</li><li>首页摘要显示方式</li><li>顶部图、背景图和侧栏组件</li><li>分类卡片、轮播图、音乐播放器等扩展模块</li></ul><h2 id="文章写作"><a href="#文章写作" class="headerlink" title="文章写作"></a>文章写作</h2><p>每篇文章开头都可以通过 Front-matter 自定义展示效果。比较常用的字段有 <code>title</code>、<code>categories</code>、<code>tags</code>、<code>description</code>、<code>cover</code> 和 <code>top_img</code>。</p><p>示例：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">文章标题</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">技术笔记</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Hexo</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">首页卡片摘要</span></span><br><span class="line"><span class="attr">cover:</span> <span class="string">/img/example-cover.png</span></span><br><span class="line"><span class="attr">top_img:</span> <span class="string">/img/example-banner.png</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure><h2 id="本地预览"><a href="#本地预览" class="headerlink" title="本地预览"></a>本地预览</h2><p>修改内容后，可以在本地生成并预览：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br><span class="line">npx hexo server</span><br></pre></td></tr></table></figure><p>之后打开本地地址，就能查看首页卡片、文章详情页和分类标签是否显示正常。</p>]]></content>
     
@@ -40,6 +40,74 @@
     <category term="Butterfly" scheme="https://www.shallowrecall.top/tags/Butterfly/"/>
     
     <category term="博客" scheme="https://www.shallowrecall.top/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>局域网监控全家桶搭建笔记:NetAlertX + Uptime Kuma + Beszel + Grafana + ntfy</title>
+    <link href="https://www.shallowrecall.top/posts/1c191034.html"/>
+    <id>https://www.shallowrecall.top/posts/1c191034.html</id>
+    <published>2026-11-01T16:00:00.000Z</published>
+    <updated>2026-11-01T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="🧭-局域网监控全家桶搭建笔记-NetAlertX-Uptime-Kuma-Beszel-Grafana-ntfy"><a href="#🧭-局域网监控全家桶搭建笔记-NetAlertX-Uptime-Kuma-Beszel-Grafana-ntfy" class="headerlink" title="🧭 局域网监控全家桶搭建笔记:NetAlertX + Uptime Kuma + Beszel + Grafana + ntfy"></a>🧭 局域网监控全家桶搭建笔记:NetAlertX + Uptime Kuma + Beszel + Grafana + ntfy</h1><blockquote><p>💡 设备一多,「谁挂了」就变成了玄学:NAS 上某个容器停了、软路由 DHCP 抽风、ESXi 里一台虚机失联——每次都是等发现不了网的时候才知道出事。这篇文章记录我把整个局域网的「设备、服务、指标、告警」四层监控补齐的过程。</p></blockquote><span id="more"></span><h2 id="0-为什么要做监控"><a href="#0-为什么要做监控" class="headerlink" title="0. 为什么要做监控"></a>0. 为什么要做监控</h2><p>家里现在跑着的东西:25 台 LAN 设备(iStoreOS、fnOS NAS、Debian 宿主、ESXi、米家网关、各种盒子),56 条服务端口映射,7 台需要看系统指标的主机。</p><p>之前的痛点很典型:</p><ul><li><strong>设备无账本</strong>:新设备接入没人知道,IP 被占了才想起来查</li><li><strong>服务黑盒</strong>:42 个 Web 服务全靠「打不开才发现」</li><li><strong>指标缺失</strong>:CPU/磁盘/带宽没有历史曲线,排查全凭感觉</li><li><strong>告警分散</strong>:有的发邮件、有的没告警,出事了都不知道</li></ul><p>目标:设备有台账、服务有探测、主机有指标、告警走一个入口。</p><h2 id="1-总体架构"><a href="#1-总体架构" class="headerlink" title="1. 总体架构"></a>1. 总体架构</h2><p>先看全貌:</p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e444c71b.webp" alt="局域网监控体系架构"></p><p>分工原则是<strong>一个工具只干一件事</strong>:</p><div class="table-container"><table><thead><tr><th>组件</th><th>职责</th><th>部署位置</th></tr></thead><tbody><tr><td>NetAlertX</td><td>设备发现与台账(双网段)</td><td>.55 · :20211</td></tr><tr><td>Uptime Kuma</td><td>服务可用性探测(42 项)</td><td>.51 · :3001</td></tr><tr><td>Beszel</td><td>主机系统指标(7 台)</td><td>.55 · :3017</td></tr><tr><td>8789 控制台</td><td>端口探测 + 设备 JSON 出口</td><td>.51 · :8789</td></tr><tr><td>Grafana 12</td><td>设备清单/类型分布展示面板</td><td>.55 · :3023</td></tr><tr><td>ntfy</td><td>统一告警推送</td><td>.51</td></tr></tbody></table></div><h2 id="2-探测层四件套"><a href="#2-探测层四件套" class="headerlink" title="2. 探测层四件套"></a>2. 探测层四件套</h2><h3 id="NetAlertX-设备台账"><a href="#NetAlertX-设备台账" class="headerlink" title="NetAlertX:设备台账"></a>NetAlertX:设备台账</h3><p>双网段扫描(31.x + 0.x)都能发现,新设备接入、设备离线都会推 ntfy。后来把 25 台设备全部补了可读名称(.50 iStoreOS、.51 fnOS、.55 Debian、.99 ESXi……),并把确认过的设备标记为非新设备——这步是靠它的 API 批量写入的,Token 从运行时环境注入,不落盘。</p><h3 id="Uptime-Kuma-服务探测"><a href="#Uptime-Kuma-服务探测" class="headerlink" title="Uptime Kuma:服务探测"></a>Uptime Kuma:服务探测</h3><p>42 个监控项覆盖所有 Web 服务和关键端口。它还有一个彩蛋链路:<strong>Kuma → Home Assistant → 台灯</strong>,服务挂了台灯闪红,躺在沙发上也能知道出事了(后面告警链详说)。</p><h3 id="Beszel-主机指标"><a href="#Beszel-主机指标" class="headerlink" title="Beszel:主机指标"></a>Beszel:主机指标</h3><p>7 台物理/虚拟主机接入,CPU、内存、磁盘、磁盘 I/O、上下行吞吐都有,通知同样接 ntfy。选它而不是 Node Exporter 全家桶的原因很简单:单容器部署,agent 够轻。</p><h3 id="8789-自研总览控制台"><a href="#8789-自研总览控制台" class="headerlink" title="8789:自研总览控制台"></a>8789:自研总览控制台</h3><p>这是整个体系里最关键的一块拼图——自己写的总览控制台,27 项探测全部正常,除了页面展示,它还提供<strong>带 CORS 的设备 JSON</strong>:<code>http://192.168.31.51:8789/net/devices</code>。这个接口后来成了 Grafana 面板和 3D 拓扑的数据源。</p><h2 id="3-Grafana-Infinity-设备面板"><a href="#3-Grafana-Infinity-设备面板" class="headerlink" title="3. Grafana Infinity 设备面板"></a>3. Grafana Infinity 设备面板</h2><p>Grafana 用原生 systemd 部署(12.2.1,开机自启),通过 Infinity 插件直接读 8789 的 JSON,用 JSONata 做解析:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root_selector = $.devices</span><br></pre></td></tr></table></figure><p>面板做了四块:统计卡(总设备 25 / 待确认 0 / 智能家居 14 / 服务器 4)、可排序设备清单、设备类型分布柱状图、四个监控入口的可点击直达。</p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e3148fc9.webp" alt="Grafana 设备面板整页"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e2612281.webp" alt="设备清单表格"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89db2beacb.webp" alt="设备类型分布"></p><h3 id="Infinity-插件的坑"><a href="#Infinity-插件的坑" class="headerlink" title="Infinity 插件的坑"></a>Infinity 插件的坑</h3><p>这个坑值得单独记:<strong>查询对象的数组字段写成 <code>null</code> 会直接报错</strong>。</p><p>Infinity 3.11.1 的前端会对 <code>url_options.headers</code>、<code>params</code>、<code>body_form</code> 做 <code>.map()</code>,写成 <code>null</code> 就是 <code>Cannot read properties of null (reading &#39;map&#39;)</code>。正确做法是<strong>省略这些字段,或写成空数组</strong>,不要写 <code>null</code>。</p><p>另外两个小处理:表格查询把空类型/空厂商补成「未分类/未知」;无法识别名称的新设备显示为「未知设备 · IP」,不再出现空白或 <code>(name not found)</code>。</p><h2 id="4-告警链-ntfy-→-Home-Assistant-→-台灯"><a href="#4-告警链-ntfy-→-Home-Assistant-→-台灯" class="headerlink" title="4. 告警链:ntfy → Home Assistant → 台灯"></a>4. 告警链:ntfy → Home Assistant → 台灯</h2><p>所有告警走 ntfy 一个入口:</p><ul><li>NetAlertX:新设备接入、设备离线</li><li>Uptime Kuma:服务探测失败</li><li>Beszel:主机指标越阈</li></ul><p>再加一条物理链路:<strong>Kuma → Home Assistant → 台灯故障灯</strong>。深夜服务挂掉,手机推送可能被静音,但台灯闪红光不会。</p><h2 id="5-全平台汉化"><a href="#5-全平台汉化" class="headerlink" title="5. 全平台汉化"></a>5. 全平台汉化</h2><p>监控面板是全家要看的,英文界面家庭接受度低,顺手全汉化了:</p><div class="table-container"><table><thead><tr><th>组件</th><th>方式</th></tr></thead><tbody><tr><td>Grafana</td><td><code>custom.ini</code> 加 <code>[users] default_language = zh-Hans</code></td></tr><tr><td>NetAlertX</td><td>UI 语言 <code>zh_cn</code> + 设备名/类型改中文</td></tr><tr><td>Uptime Kuma</td><td>浏览器 <code>zh-CN</code> 自动生效,无需改服务端</td></tr><tr><td>Beszel</td><td>浏览器 <code>zh-CN</code> 自动生效,无需改服务端</td></tr><tr><td>8789</td><td>原生中文页面</td></tr></tbody></table></div><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e513600a.webp" alt="NetAlertX 中文界面"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e39ae08d.webp" alt="Uptime Kuma 中文登录页"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e1008551.webp" alt="Beszel 中文登录页"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e5d6b146.webp" alt="8789 中文控制台"></p><p>已知残留:Grafana 上游中文包有个别内置字符串(如 <code>Last 15 minutes</code>)未翻译,不影响业务内容。</p><h2 id="6-踩坑记录"><a href="#6-踩坑记录" class="headerlink" title="6. 踩坑记录"></a>6. 踩坑记录</h2><ol><li><strong>Infinity <code>null.map</code> 报错</strong>:数组字段写 <code>null</code> 必挂,省略或 <code>[]</code>(见上文)</li><li><strong>Grafana 别用 Docker 和 systemd 混跑</strong>:早期 compose 部署升级麻烦,换成原生 <code>grafana.service</code> 后,旧 compose 文件改名停用、同名容器删除,避免再次抢占 3023 端口</li><li><strong>Dashboard 改前必备份</strong>:JSON 存本地 + 服务器双份(<code>grafana-dashboard-before-2026-11-01.json</code>),出问题秒回滚</li><li><strong>批量改设备名前先备数据库</strong>:NetAlertX 的 <code>app.db</code> 改名前做了 <code>.bak</code> 备份,Token 不落盘</li></ol><h2 id="7-验收标准"><a href="#7-验收标准" class="headerlink" title="7. 验收标准"></a>7. 验收标准</h2><ul><li>6 个动态面板查询全部返回 200,统计卡无空数据</li><li>设备表返回 25 行,类型汇总 5 类</li><li>页面渲染无错误,浏览器控制台无 Infinity 异常</li><li>27/27 端口探测正常,4 个监控入口可直达</li></ul><blockquote><p>本文首发于 <a href="https://www.shallowrecall.top/">ShallowRecall</a>,转载请注明出处。</p></blockquote>]]></content>
+    
+    
+    <summary type="html">25 台设备、42 项服务探测、7 台主机指标:用 NetAlertX 管设备发现、Uptime Kuma 管服务探测、Beszel 管主机指标、8789 管端口总览,Grafana Infinity 做设备清单面板,ntfy 统一告警,最后连台灯都成了故障灯。</summary>
+    
+    
+    
+    <category term="技术笔记" scheme="https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="流程类" scheme="https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B5%81%E7%A8%8B%E7%B1%BB/"/>
+    
+    
+    <category term="Homelab" scheme="https://www.shallowrecall.top/tags/Homelab/"/>
+    
+    <category term="监控" scheme="https://www.shallowrecall.top/tags/%E7%9B%91%E6%8E%A7/"/>
+    
+    <category term="Grafana" scheme="https://www.shallowrecall.top/tags/Grafana/"/>
+    
+    <category term="Uptime-Kuma" scheme="https://www.shallowrecall.top/tags/Uptime-Kuma/"/>
+    
+    <category term="NetAlertX" scheme="https://www.shallowrecall.top/tags/NetAlertX/"/>
+    
+    <category term="Beszel" scheme="https://www.shallowrecall.top/tags/Beszel/"/>
+    
+    <category term="ntfy" scheme="https://www.shallowrecall.top/tags/ntfy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用 Three.js 给家庭网络做一个 3D 服务拓扑(含公网访问码门户)</title>
+    <link href="https://www.shallowrecall.top/posts/d5624bc1.html"/>
+    <id>https://www.shallowrecall.top/posts/d5624bc1.html</id>
+    <published>2026-11-01T16:00:00.000Z</published>
+    <updated>2026-11-01T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="🧭-用-Three-js-给家庭网络做一个-3D-服务拓扑-含公网访问码门户"><a href="#🧭-用-Three-js-给家庭网络做一个-3D-服务拓扑-含公网访问码门户" class="headerlink" title="🧭 用 Three.js 给家庭网络做一个 3D 服务拓扑(含公网访问码门户)"></a>🧭 用 Three.js 给家庭网络做一个 3D 服务拓扑(含公网访问码门户)</h1><blockquote><p>💡 「服务部署在哪台主机的哪个端口」这件事,表格记不住、2D 图看不清、力导向图会乱。所以花了一个版本迭代出一个自定义 Three.js 场景:固定的网络层级 + 会转风扇的硬件模型 + 实时指标驱动,再配一套有时效的访问码门户放到公网。</p></blockquote><span id="more"></span><h2 id="0-为什么不用现成方案"><a href="#0-为什么不用现成方案" class="headerlink" title="0. 为什么不用现成方案"></a>0. 为什么不用现成方案</h2><p>动手前先排除了四个候选:</p><div class="table-container"><table><thead><tr><th>方案</th><th>结论</th></tr></thead><tbody><tr><td>3d-force-graph / react-force-graph-3d</td><td>生态成熟,但<strong>力导向布局会打乱固定网络层级</strong></td></tr><tr><td>Grafana Node Graph</td><td>适合调用链,端口和主机卡交互展示不自由</td></tr><tr><td>Cytoscape.js</td><td>2D 图能力强,不是真 3D</td></tr><tr><td>NetBox Topology</td><td>适配 NetBox 资产模型,部署重,与现有 NetAlertX/8789 栈冲突</td></tr></tbody></table></div><p>我的需求核心是清楚表达<strong>层级 + 端口归属</strong>,还要保留拖拽旋转、缩放、搜索、点击详情——所以最终用 Three.js 自定义场景,不用通用力导向图。</p><h2 id="1-分层设计"><a href="#1-分层设计" class="headerlink" title="1. 分层设计"></a>1. 分层设计</h2><p>拓扑按真实网络层级组织,而不是随机布局:</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">互联网 → 公网网关 → 主路由 → 主机 → 服务:端口</span><br></pre></td></tr></table></figure><p>12 个拓扑节点、56 条服务/端口映射、25 台 LAN 设备。点击节点打开右侧详情,列出全部服务、端口和访问链接;选中主机还会展开 3D 服务轨道,按 Web/API、监控、存储/媒体、自动化/通知分组。</p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89ed100ec2.webp" alt="拓扑总览"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89f423a30c.webp" alt="服务轨道展开"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89ef5d18ad.webp" alt="端口锁定与详情"></p><p>快捷键:<code>/</code> 搜索、<code>O</code> 服务轨道、<code>E</code> 硬件剖视、<code>D</code> 故障演练、<code>Esc</code> 逐级退出。桌面端斜视 3D 布局,移动端自动切两列纵向布局。</p><h2 id="2-数据链路-浏览器不碰凭据"><a href="#2-数据链路-浏览器不碰凭据" class="headerlink" title="2. 数据链路:浏览器不碰凭据"></a>2. 数据链路:浏览器不碰凭据</h2><p>架构上最重要的一条约束:<strong>浏览器只访问同源接口</strong>,不接触 Beszel 凭据或数据库文件。</p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e68446d8.webp" alt="数据链路与公网访问"></p><ul><li><code>metrics_bridge.py</code> 以<strong>只读</strong>方式访问 Beszel 的 SQLite,合并 NetAlertX 在线状态和可选的 Kuma 状态页,每 15 秒<strong>原子更新</strong> <code>metrics.json</code></li><li><code>server.py</code> 负责静态文件和 8789 同源代理(<code>/api/status</code>、<code>/api/devices</code>),带缓存和后台预热,避免跨域和浏览器私网限制</li><li>指标超过 90 秒未更新自动标记 <code>STALE</code>,接口不可用时回退到静态拓扑状态;<code>/api/metrics/health</code> 暴露指标年龄供告警判断</li></ul><p>实时感的映射规则:CPU 驱动设备光晕和风扇转速,磁盘 I/O 驱动硬盘灯频率,网络流量驱动连线光粒子密度与速度;NetAlertX 离线的设备熄灯、外壳降透明、连线变灰。</p><h2 id="3-硬件微缩模型-GLB-Draco"><a href="#3-硬件微缩模型-GLB-Draco" class="headerlink" title="3. 硬件微缩模型:GLB + Draco"></a>3. 硬件微缩模型:GLB + Draco</h2><p>路由器、NAS、1U 服务器、塔式 PC、Mac mini、SBC 六类硬件模型,程序化生成,不依赖第三方素材授权:</p><ul><li>GLB 分 <strong>high/low 双档</strong>:桌面加载高模,移动端和低配设备自动加载低模;异步替换程序化外壳,加载失败自动回退</li><li>机箱带盘位、网口、状态灯、散热格栅和可动画风扇,LED 与风扇持续运行</li><li>12 个 GLB + Draco 运行时合计约 <strong>1.17 MiB</strong>,低于 8 MiB 首屏资源预算</li><li>Draco 解码器本地化(<code>public/draco/</code>),不依赖 CDN</li></ul><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89ea8ec6c5.webp" alt="GLB 硬件细节"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e8d0a1d8.webp" alt="硬件爆炸视图"></p><p><code>npm run assets:verify</code> 会校验 12 个 GLB、文件头和体积预算——三个 CI workflow 都先跑它,防止资产回归。</p><h2 id="4-公网访问-访问码门户"><a href="#4-公网访问-访问码门户" class="headerlink" title="4. 公网访问:访问码门户"></a>4. 公网访问:访问码门户</h2><p>公网入口用独立 Cloudflare Tunnel(主域名 <code>topology.shallowrecall.top</code>,备用 <code>net3d</code>),两层权限:</p><ul><li><strong>访客入口 <code>/access</code></strong>:输入管理员生成的访问码——支持生效/过期时间、最大兑换次数、会话时长、禁用/延期/删除;达到上限后新登录拒绝、已登录会话自然存续</li><li><strong>管理入口 <code>/admin</code></strong>:HTTP Basic Auth,支持快捷有效期、搜索、状态筛选、使用进度和移动端卡片布局</li></ul><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89dea57283.webp" alt="访问码门户"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89e08b3cf2.webp" alt="管理后台"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89df79ee95.webp" alt="移动端管理后台"></p><p>安全要点:</p><ul><li>原始访问码只在创建时显示一次,数据库只存 <strong>SHA-256 哈希</strong>;管理员密码只有 PBKDF2 哈希进环境文件(权限 600)</li><li>会话用 <strong>HMAC 签名 HttpOnly Cookie</strong>,且每次请求都重查数据库状态——禁用访问码会立即注销已有会话</li><li><code>/healthz</code> 匿名可访问供 Cloudflare/Uptime Kuma 健康检查;其余页面、静态资源和 <code>/api/*</code> 都要有效会话</li><li>密码登录失败有基础限流,访问页与错误日志遮蔽访问码</li></ul><h2 id="5-CI-CD-Mock-构建-self-hosted-runner"><a href="#5-CI-CD-Mock-构建-self-hosted-runner" class="headerlink" title="5. CI/CD:Mock 构建 + self-hosted runner"></a>5. CI/CD:Mock 构建 + self-hosted runner</h2><p>三个 GitHub Actions workflow,全部先跑 <code>assets:verify</code> 和 <code>metrics:verify</code>:</p><ul><li><strong>CI</strong>:用 <code>VITE_MOCK_API=true</code> 的 Mock 数据构建,并用 Playwright 生成版本截图</li><li><strong>Deploy</strong>:main 更新后由 <code>.55</code> 上的 self-hosted runner(<code>debian-network-topology</code>)构建,<strong>只更新 <code>/opt/network-topology-3d/dist</code></strong>——不会覆盖 <code>server.py</code>、Basic Auth 环境文件或访问门户</li><li><strong>Release</strong>:推送 <code>v*</code> tag 时用 Mock 数据生成带截图描述的 GitHub Release</li></ul><p>部署面用两个 systemd 服务兜底:主服务 + metrics bridge(notify/watchdog,进程卡死自动重启);bridge 告警接 ntfy,每 6 小时最多重复提醒一次。</p><h2 id="6-故障演练与-AI-助手"><a href="#6-故障演练与-AI-助手" class="headerlink" title="6. 故障演练与 AI 助手"></a>6. 故障演练与 AI 助手</h2><p>按 <code>D</code> 打开演练控制台:选择主机和故障服务注入<strong>纯前端合成离线事件</strong>,告警链按互联网 → 网关 → 路由 → 主机逐段点亮,故障设备红色呼吸、风扇降速;演练不写数据库、不发真实通知,最近一次演练持久化到浏览器可回放。</p><p>页面还内嵌了一个服务端 Agent(SSE 流式 + 工具调用),经 OpenAI-compatible 网关(如 new-api)接入,可查询实时状态、检索拓扑,并联动 3D 场景(选中节点、展开服务轨道、硬件剖视、巡检)。工具仅限白名单,管理操作不开放给模型。</p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89ed100ec2.webp" alt="公网 3D 拓扑"></p><p><img src="https://img-minio.shallowrecall.top/2026/11/02/6ae89eb288895.webp" alt="移动端拓扑"></p><h2 id="7-版本路线"><a href="#7-版本路线" class="headerlink" title="7. 版本路线"></a>7. 版本路线</h2><ul><li><code>v1.0.0-baseline</code>:基础分层拓扑 + 详情面板</li><li><code>v1.1.0</code>:程序化硬件模型、节点聚焦镜头、自动巡检、开场动画</li><li><code>v1.2</code>:GLB 硬件资产 + 回退机制</li><li><code>v1.3</code>:静态拓扑状态回退</li><li><code>v1.4</code>:Beszel/NetAlertX 实时遥测桥</li><li><code>v1.5</code>(当前):故障告警链、演练恢复、移动端演练</li></ul><p>源码与 Release:<code>github.com/ShallowRecall/network-topology-3d</code>(私有仓库)</p><blockquote><p>本文首发于 <a href="https://www.shallowrecall.top/">ShallowRecall</a>,转载请注明出处。</p></blockquote>]]></content>
+    
+    
+    <summary type="html">现成拓扑工具都不合身,于是用 Three.js 自研了一个分层 3D 拓扑:互联网 → 网关 → 路由 → 主机 → 服务:端口,Beszel/NetAlertX 实时遥测驱动风扇转速和光粒子,Draco 压缩的 GLB 硬件微缩模型,外加访问码门户和 CI 自动部署。</summary>
+    
+    
+    
+    <category term="技术笔记" scheme="https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="流程类" scheme="https://www.shallowrecall.top/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/%E6%B5%81%E7%A8%8B%E7%B1%BB/"/>
+    
+    
+    <category term="Homelab" scheme="https://www.shallowrecall.top/tags/Homelab/"/>
+    
+    <category term="Cloudflare" scheme="https://www.shallowrecall.top/tags/Cloudflare/"/>
+    
+    <category term="Three.js" scheme="https://www.shallowrecall.top/tags/Three-js/"/>
+    
+    <category term="WebGL" scheme="https://www.shallowrecall.top/tags/WebGL/"/>
+    
+    <category term="可视化" scheme="https://www.shallowrecall.top/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/"/>
+    
+    <category term="CI-CD" scheme="https://www.shallowrecall.top/tags/CI-CD/"/>
     
   </entry>
   
@@ -556,55 +624,6 @@
     
     
     <category term="微服务" scheme="https://www.shallowrecall.top/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>堆和栈的区别</title>
-    <link href="https://www.shallowrecall.top/posts/322da11e.html"/>
-    <id>https://www.shallowrecall.top/posts/322da11e.html</id>
-    <published>2024-03-11T18:56:28.000Z</published>
-    <updated>2024-03-11T18:56:28.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Stack-Vs-Heap"><a href="#Stack-Vs-Heap" class="headerlink" title="Stack Vs Heap"></a>Stack Vs Heap</h2><h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><ul><li>管理方式不同：栈是由编译器自动申请和释放空间，堆是需要程序员手动申请和释放；</li><li>空间大小不同：栈的空间是有限的，在32位平台下，VC6下默认为1M，堆最大可以到4G；</li><li>能否产生碎片：栈和数据结构中的栈原理相同，在弹出一个元素之前，上一个已经弹出了，不会产生碎片，如果不停地调用malloc、free堆造成内存碎片很多;</li><li>生长方向不同：堆生长方向是向上的，也就是向着地址增加的方向，栈刚好相反，向着内存减小的方向生长。</li><li>分配方式不同：堆都是动态分配的，没有静态分配的堆。栈有静态分配和动态分配。静态分配是编译器完成的，比如局部变量的分配。动态分配由 malloc 函数进行分配，但是栈的动态分配和堆是不同的，它的动态分配是由编译器进行释放，无需我们手工实现。</li><li>分配效率不同：栈的效率比堆高很多。栈是机器系统提供的数据结构，计算机在底层提供栈的支持，分配专门的寄存器来存放栈的地址，压栈出栈都有相应的指令，因此比较快。堆是由库函数提供的，机制很复杂，库函数会按照一定的算法进行搜索内存，因此比较慢。</li></ul><h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Stack-Vs-Heap&quot;&gt;&lt;a href=&quot;#Stack-Vs-Heap&quot; class=&quot;headerlink&quot; title=&quot;Stack Vs Heap&quot;&gt;&lt;/a&gt;Stack Vs Heap&lt;/h2&gt;&lt;h3 id=&quot;C&quot;&gt;&lt;a href=&quot;#C&quot; class</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>IO流</title>
-    <link href="https://www.shallowrecall.top/posts/fed4c017.html"/>
-    <id>https://www.shallowrecall.top/posts/fed4c017.html</id>
-    <published>2024-02-28T19:50:07.000Z</published>
-    <updated>2024-02-28T19:50:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、IO流的概述"><a href="#一、IO流的概述" class="headerlink" title="一、IO流的概述"></a>一、IO流的概述</h2><ol><li>什么是IO流</li></ol><p>​    存储和读取数据的解决方案</p><p>​    I : input    O : ouput</p><p>​    流 : 像水流一样传输数据</p><ol><li>IO流的作用？</li></ol><p>​    用于读写数据(本地文件，网络)</p><ol><li>IO流按照流向可以分类哪两种流？</li></ol><p>​    流出流 : 程序  ——&gt;  文件</p><p>​    输入流 : 文件  ——&gt;  程序</p><ol><li>IO流按照操作文件的类型可以分类哪两种流？</li></ol><p>​    字节流 : 可以操作所有类型的文件</p><p>​    字符流 : 只能操作纯文本文件</p><ol><li>什么是纯文本文件？</li></ol><p>​    用Windows系统自带的记事本打开并且能读懂的文件(txt文件，md文件，xml文件，lrc文件等)</p><h2 id="二、FileOutputStream的介绍"><a href="#二、FileOutputStream的介绍" class="headerlink" title="二、FileOutputStream的介绍"></a>二、FileOutputStream的介绍</h2><h3 id="FileOutputStream书写细节"><a href="#FileOutputStream书写细节" class="headerlink" title="FileOutputStream书写细节"></a>FileOutputStream书写细节</h3><ol><li><p>创建字节输出流对象<br>细节1：参数是字符串表示的路径或者是FIle对象都可以<br>细节2: 如果文件不存在会创建一个新的文件，但是要保证父级路径是存在的。<br>细节3: 如果文件已经存在，则会清空文件</p></li><li><p>写数据<br>细节：write方法的参数是整数，但是实际上写到本地文件中的是整数的ASCII上对应的字符</p></li><li><p>释放资源<br>每次使用完流之后都要释放资源</p></li></ol><h3 id="换行-和-续写"><a href="#换行-和-续写" class="headerlink" title="换行 和 续写"></a>换行 和 续写</h3><p>换行写:</p><p>再次写出一个换行符号就可以了<br>Windows: \r\n<br>早期的dos系统当中的回车是将光标放到这一行的开头，<br>换行才是真正的将光标移到下一行<br>Linux：  \n<br>Mac：    \r<br>细节：<br>在Windows系统当中，java对回车换行进行了优化。<br>虽然完整的是\r\n,但是我们写其中一个\r或者\n.<br>java也可以实现换行，因为java在底层会补全。<br>建议：<br>不要省略，还是写全了。</p><p>续写:<br>如果想要续写，打开续写开关即可<br>开关位置：创建对象的第二个参数<br>默认false：表示关闭续写，此时创建对象就会清空文件<br>手动传递true：表示打开续写，此时创建对象不会清空文件</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol><li><p>FileOutputStream作用</p><p>可以把程序中的数据写在本地文件上，是字节流的基本流</p></li><li><p>书写步骤</p><p>创建对象，写出数据，释放资源</p></li><li><p>三步操作的细节</p><p>1）创建对象：文件存在(会清空内容，打开续写开关就可以在后面append)、文件不存在(会创建文件、但是需要保证父级文件存在，否则会报错)、追加写入</p><p>2）写出数据：写出整数(实际是ASCII表中对应的字符)、写出字节数组(相当于把字节数组的全部，或者一部分写入到本地文件当中)、换行写(写出一个换行符 windows : \r\n; Linux : \n; Mac : \r;)</p><p>3）释放资源: 关闭通道</p></li></ol><h2 id="三、FileInputStream的介绍"><a href="#三、FileInputStream的介绍" class="headerlink" title="三、FileInputStream的介绍"></a>三、FileInputStream的介绍</h2><h3 id="FileInputStream书写细节"><a href="#FileInputStream书写细节" class="headerlink" title="FileInputStream书写细节"></a>FileInputStream书写细节</h3><ol><li><p>创建字节输入流对象</p><p>细节1：如果文件不存在，就会直接报错。<br>Java为什么会这么设计？<br>输出流：不存在，创建<br>把数据写到文件当中</p><pre><code> 输入流：不存在，而是报错呢？                     因为创建出来的文件是没有数据的，没有任何意义。                     所以Java就没有设计这种无意义的逻辑，文件不存在直接报错。</code></pre><p>程序中最重要的是：数据。</p></li><li><p>读取数据</p><p>细节1：一次读一个字节，读出来的是数据在ASCII上对应的数字</p><p>细节2：读到文件末尾了，read方法返回-1。</p><p>tip：如果文件中最后一个是-1，会分两次读取，首先读取-号，然后读取1;</p></li><li><p>释放资源</p><p>细节：每次使用完流之后都要释放资源</p></li></ol><h3 id="字节输入流循环读取"><a href="#字节输入流循环读取" class="headerlink" title="字节输入流循环读取"></a>字节输入流循环读取</h3><p>read : 表示读取数据，而且是读取一个数据就移动一次指针</p><h2 id="四、字符集"><a href="#四、字符集" class="headerlink" title="四、字符集"></a>四、字符集</h2><h4 id="ASCII、GBK"><a href="#ASCII、GBK" class="headerlink" title="ASCII、GBK"></a>ASCII、GBK</h4><h5 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h5><p>1）计算机中最小存储单元是一个字节</p><p>2）计算机在存储英文时，只需要128个Byte就够了，而一个字节可以存储256个数据，因此一个字节就够了</p><p>3）假设现在要存储 ‘a’ ，其对应的ASCII为 97 , 97用二进制表示为110 0001，并不能直接将110 0001直接存储进去，而是需要编码{ASCII编码规则：前面补0，补齐8位}，因此真实存储在计算机里面的时0110 0001，如果现在要读取出来，就会读取到0110 0001 ，然后解码{ASCII解码规则：直接转成十进制} 得到 97，查询ASCII 读取到英文’a’</p><p>4）GBK存储规则：英文用一个字节存储，汉字用两个字节存储(可以记录65535个字符)</p><p>规则1：汉字两个字节存储</p><p>规则2：高位字节二进制一定以1开头，转成十进制之后是一个复数</p><h5 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h5><p>问题一：10111010  10111010  01100001</p><p>一个汉字一个英文[汉 a]</p><p>问题二：01100001  01100010  01100011</p><p>三个英文[a b c]</p><p>问题三：10110000  10100010  11100111  11100010  10111010 11000011  11001011  10100111</p><p>四个汉字[阿 玮 好 帅]</p><h5 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h5><ol><li><p>在计算书机中，任意数据都是以二进制的形式来存储的</p></li><li><p>计算机中最小的存储单元是一个字节</p></li><li><p>ASCII字符集中，一个英文占一个字节</p></li><li><p>简体中文版Windows，默认使用GBK字符集</p></li><li><p>GBK字符集完全兼容ASCII字符集</p><p>一个英文占一个字节，二进制第一位是0</p><p>一个英文占两个字节，二进制高位字节的第一位是1</p></li></ol><h4 id="Unicode：万国码"><a href="#Unicode：万国码" class="headerlink" title="Unicode：万国码"></a>Unicode：万国码</h4><h5 id="细节-1"><a href="#细节-1" class="headerlink" title="细节"></a>细节</h5><p>1）Unicode编码：</p><p>UTF(Unicode Transfer Format)</p><p>UTF-16编码规则：用2~4个字节保存</p><p>a —&gt; 97 —&gt; 00000000 01100001</p><p>UTF-32编码规则：固定使用四个字节保存</p><p>a —&gt; 97 —&gt;00000000 00000000 00000000 01100001</p><p>UTF-8编码规则：用1~4个字节保存</p><p>UTF-8编码方式(二进制)</p><blockquote><p>0xxxxxxxx (ASCII码)</p><p>110xxxxx 10xxxxxx (两个字节)</p><p>1110xxxx 10xxxxxx 10xxxxxx (三个字节)</p><p>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx (四个字节)</p></blockquote><p>a —&gt; 97 —&gt; 110 0001(英文采用一个字节) —&gt; (0110 0001)</p><p>汉 —&gt; 27721 —&gt; 01101100 01001001(汉字采用三个字节) —&gt;</p><p>11100110 10110001 10001001</p><p>英文：1个字节    中文：3个字节，第一个字节的首位是1</p><h5 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h5><ol><li><p>UTF-8是一个字符集吗？</p><p>不是，是Unicode字符集的一种编码方式</p></li><li><p>以下为Unicode字符集，利用UTF-8编码之后的二进制数据，请说出有几个中文，几个英文？</p><p>问题一：01001010 01100001 01110110 01100001</p><p>三个英文，零个汉字[j a v a]</p><p>问题二：01100001 01101001 11100100 10111101 10100000 11100101 10010011 10011111</p><p>两个英文，两个汉字[a i 你 哟]</p><h5 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h5><ol><li><p>Unicode字符集的UTF-8编码格式</p><p>一个英文占一个字节，二进制第一位是0，转成十进制是正数</p><p>一个中文占三个字节，二进制第一位是1，第一个字节转成十进制是负数</p></li></ol></li></ol><h4 id="乱码"><a href="#乱码" class="headerlink" title="乱码"></a>乱码</h4><h5 id="为什么会产生乱码？"><a href="#为什么会产生乱码？" class="headerlink" title="为什么会产生乱码？"></a>为什么会产生乱码？</h5><p>原因1：读取数据时未读完整个汉字</p><p>原因2：编码和解码时的方式不统一</p><h5 id="如何不产生乱码？"><a href="#如何不产生乱码？" class="headerlink" title="如何不产生乱码？"></a>如何不产生乱码？</h5><ol><li>不要使用字节流读取文本文件</li><li>编码解码时使用同一个码表，同一个编码方式</li></ol><h5 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h5><p>疑问：字节流读取中文会乱码，但是为什么拷贝不会乱码呢？</p><blockquote><p>当使用字节流（如InputStream）读取中文字符时可能会出现乱码的情况，这是因为字节流是以字节为单位进行读取的，而中文字符通常需要多个字节来表示（例如UTF-8编码中的中文字符通常需要3个字节）。</p><p>如果你使用字节流直接读取，可能会把一个中文字符的一部分作为一个字节读取，导致解码时出现乱码。</p><p>然而，当你进行拷贝时，实际上是将原始的字节流进行了复制，不涉及字符编码和解码的过程。所以即使原始数据中存在中文字符，拷贝的过程中并不会对中文字符进行处理，因此不会出现乱码问题。</p><p>如果你希望在处理中文字符时避免乱码，可以考虑使用字符流（如Reader）和相应的字符编码（如UTF-8）来进行读取和写入，这样可以确保正确地处理中文字符。字符流会以字符为单位进行读取，而不是字节，从而避免了中文字符被拆分的问题。</p></blockquote><h2 id="五、FileReader-的介绍"><a href="#五、FileReader-的介绍" class="headerlink" title="五、FileReader 的介绍"></a>五、FileReader 的介绍</h2><h3 id="FileReader书写细节"><a href="#FileReader书写细节" class="headerlink" title="FileReader书写细节"></a>FileReader书写细节</h3><ol><li><p>创建字符输入流对象</p><p>public FileReader(File file)                        创建字符输入流关联本地文件<br>public FileReader(String pathname)               创建字符输入流关联本地文件</p><p>细节1：如果文件不存在，就直接报错。</p></li><li><p>读取数据</p><p>public int read()                                                  读取数据，读到末尾返回-1</p><p>public int read(char[] buffer)                            读取多个数据，读到末尾返回-1</p><p>细节1：按字节进行读取，遇到中文，一次读多个字节，读取后解码，返回一个整数</p><p>细节2：读到文件末尾了，read方法返回-1。</p></li><li><p>释放资源</p><p>public int close()                           释放资源/关流</p></li></ol><h2 id="六、FileWriter-的介绍"><a href="#六、FileWriter-的介绍" class="headerlink" title="六、FileWriter 的介绍"></a>六、FileWriter 的介绍</h2><h3 id="FileWriter书写细节"><a href="#FileWriter书写细节" class="headerlink" title="FileWriter书写细节"></a>FileWriter书写细节</h3><ol><li><p>创建字符输出流对象</p><p>细节1：参数是字符串表示的路径或者File对象都是可以的</p><p>细节2：如果文件不存在会创建一个新的文件，但要保证父级路径是存在的</p><p>细节3：如果文件已经存在，则会清空文件，如果不想清空可以打开续写开关</p></li><li><p>写数据</p><p>细节：如果writer方法额参数是整数，但实际上写到本地文件中的是整数在字符集上对应的字符</p></li><li><p>释放资源</p><p>细节：每次使用完流之后都要释放资源</p></li></ol><h4 id="字符流原理解析"><a href="#字符流原理解析" class="headerlink" title="字符流原理解析"></a>字符流原理解析</h4><h5 id="FileReader"><a href="#FileReader" class="headerlink" title="FileReader"></a>FileReader</h5><ol><li><p>创建字符输入流对象</p><p>底层：关联文件，并创建缓冲区(长度为8192的字节数组)</p></li><li><p>读取数据</p><p>底层：1.判断缓冲区是否有数据可以读取</p><p>​        2.缓冲区没有数据：就从文件中获取数据，装到缓冲区中，每次尽可能装满缓冲区</p><p>​                           如果文件中野没有数据了，返回-1</p><p>​            3.缓冲区有数据：就从缓冲区读取。</p><p>​    空参的read方法：一次读取一个字节，遇到中文一次读多个字节，并把字节源码转成十进制返回</p><p>​    有参的read方法：把读取字节，解码，强转三步合并了，强转之后的字符放到数组中</p></li></ol><h5 id="FileWriter"><a href="#FileWriter" class="headerlink" title="FileWriter"></a>FileWriter</h5>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;一、IO流的概述&quot;&gt;&lt;a href=&quot;#一、IO流的概述&quot; class=&quot;headerlink&quot; title=&quot;一、IO流的概述&quot;&gt;&lt;/a&gt;一、IO流的概述&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;什么是IO流&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;​    存储和读取数据的解决方案&lt;/</summary>
-      
-    
-    
-    
-    <category term="编程学习" scheme="https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="Java" scheme="https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/"/>
-    
-    <category term="Java高级" scheme="https://www.shallowrecall.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Java/Java%E9%AB%98%E7%BA%A7/"/>
-    
     
   </entry>
   
