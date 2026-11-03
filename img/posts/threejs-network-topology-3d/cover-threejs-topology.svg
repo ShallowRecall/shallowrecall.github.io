@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a2740" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="fadeV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1524"/>
+      <stop offset="0.5" stop-color="#111c31"/>
+      <stop offset="1" stop-color="#0d1524"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#fadeV)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.55"/>
+
+  <!-- 标题区 -->
+  <text x="600" y="84" text-anchor="middle" fill="#f2f6fc" font-size="42" font-weight="700" letter-spacing="2">家庭网络 3D 服务拓扑</text>
+  <text x="600" y="118" text-anchor="middle" fill="#8fa3c0" font-size="16" letter-spacing="1">Three.js · WebGL · Draco GLB · 实时遥测 · 访问码门户</text>
+  <line x1="340" y1="140" x2="860" y2="140" stroke="#3fd4e0" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- L1 互联网 -->
+  <g>
+    <ellipse cx="600" cy="182" rx="62" ry="19" fill="none" stroke="#f562a8" stroke-width="2" opacity="0.9"/>
+    <ellipse cx="600" cy="182" rx="38" ry="11" fill="none" stroke="#f562a8" stroke-width="1.3" opacity="0.5"/>
+    <circle cx="600" cy="182" r="6" fill="#f562a8"/>
+    <text x="682" y="177" fill="#f2a8cc" font-size="13.5" font-weight="600">互联网</text>
+    <text x="682" y="194" fill="#7d8aa5" font-size="10.5">Cloudflare Tunnel</text>
+  </g>
+
+  <!-- L1 -> L2 -->
+  <line x1="562" y1="196" x2="340" y2="236" stroke="#3fd4e0" stroke-width="1.5" opacity="0.7"/>
+  <line x1="638" y1="196" x2="860" y2="236" stroke="#3fd4e0" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="452" cy="216" r="2.6" fill="#7ee8f2"/>
+  <circle cx="748" cy="216" r="2.6" fill="#7ee8f2"/>
+
+  <!-- L2 网关 -->
+  <g>
+    <rect x="240" y="236" width="200" height="50" rx="11" fill="#f562a81c" stroke="#f562a8" stroke-width="1.7"/>
+    <text x="340" y="258" text-anchor="middle" fill="#f2f6fc" font-size="14.5" font-weight="600">J4125 网关</text>
+    <text x="340" y="276" text-anchor="middle" fill="#8fa3c0" font-size="10.5">iStoreOS · ESXi</text>
+
+    <rect x="760" y="236" width="200" height="50" rx="11" fill="#ffb84d1c" stroke="#ffb84d" stroke-width="1.7"/>
+    <text x="860" y="258" text-anchor="middle" fill="#f2f6fc" font-size="14.5" font-weight="600">公网入口</text>
+    <text x="860" y="276" text-anchor="middle" fill="#8fa3c0" font-size="10.5">访问码 · 门户页</text>
+  </g>
+
+  <!-- L2 -> L3 -->
+  <line x1="340" y1="286" x2="340" y2="316" stroke="#3fd4e0" stroke-width="1.5" opacity="0.7"/>
+  <line x1="340" y1="286" x2="600" y2="316" stroke="#3fd4e0" stroke-width="1.5" opacity="0.7"/>
+  <line x1="860" y1="286" x2="860" y2="436" stroke="#ffb84d" stroke-width="1.3" opacity="0.4" stroke-dasharray="5 6"/>
+  <circle cx="462" cy="300" r="2.6" fill="#7ee8f2"/>
+
+  <!-- L3 路由 -->
+  <g>
+    <rect x="240" y="316" width="200" height="50" rx="11" fill="#a78bfa1c" stroke="#a78bfa" stroke-width="1.7"/>
+    <text x="340" y="338" text-anchor="middle" fill="#f2f6fc" font-size="14.5" font-weight="600">主路由</text>
+    <text x="340" y="356" text-anchor="middle" fill="#8fa3c0" font-size="10.5">iStoreOS · PPPoE</text>
+
+    <rect x="500" y="316" width="200" height="50" rx="11" fill="#a78bfa1c" stroke="#a78bfa" stroke-width="1.7"/>
+    <text x="600" y="338" text-anchor="middle" fill="#f2f6fc" font-size="14.5" font-weight="600">旁路由</text>
+    <text x="600" y="356" text-anchor="middle" fill="#8fa3c0" font-size="10.5">Docker · 代理</text>
+  </g>
+
+  <!-- L3 -> L4 -->
+  <line x1="340" y1="366" x2="340" y2="396" stroke="#3fd4e0" stroke-width="1.4" opacity="0.65"/>
+  <line x1="600" y1="366" x2="600" y2="396" stroke="#3fd4e0" stroke-width="1.4" opacity="0.65"/>
+  <line x1="600" y1="366" x2="860" y2="396" stroke="#3fd4e0" stroke-width="1.4" opacity="0.65"/>
+  <circle cx="722" cy="380" r="2.4" fill="#7ee8f2"/>
+
+  <!-- L4 主机 -->
+  <g>
+    <rect x="240" y="396" width="200" height="50" rx="11" fill="#60a5fa1c" stroke="#60a5fa" stroke-width="1.7"/>
+    <text x="340" y="418" text-anchor="middle" fill="#f2f6fc" font-size="14.5" font-weight="600">fnOS 主机</text>
+    <text x="340" y="436" text-anchor="middle" fill="#8fa3c0" font-size="10.5">NAS · 虚拟机</text>
+
+    <rect x="500" y="396" width="200" height="50" rx="11" fill="#60a5fa1c" stroke="#60a5fa" stroke-width="1.7"/>
+    <text x="600" y="418" text-anchor="middle" fill="#f2f6fc" font-size="14.5" font-weight="600">Debian 主机</text>
+    <text x="600" y="436" text-anchor="middle" fill="#8fa3c0" font-size="10.5">Docker · 1Panel</text>
+
+    <rect x="760" y="396" width="200" height="50" rx="11" fill="#60a5fa1c" stroke="#60a5fa" stroke-width="1.7"/>
+    <text x="860" y="418" text-anchor="middle" fill="#f2f6fc" font-size="14.5" font-weight="600">Windows 主机</text>
+    <text x="860" y="436" text-anchor="middle" fill="#8fa3c0" font-size="10.5">Server · 常驻服务</text>
+  </g>
+
+  <!-- L4 -> L5 -->
+  <line x1="340" y1="446" x2="185" y2="476" stroke="#3fd4e0" stroke-width="1.3" opacity="0.6"/>
+  <line x1="340" y1="446" x2="425" y2="476" stroke="#3fd4e0" stroke-width="1.3" opacity="0.6"/>
+  <line x1="600" y1="446" x2="665" y2="476" stroke="#3fd4e0" stroke-width="1.3" opacity="0.6"/>
+  <line x1="860" y1="446" x2="905" y2="476" stroke="#3fd4e0" stroke-width="1.3" opacity="0.6"/>
+  <circle cx="266" cy="460" r="2.4" fill="#7ee8f2"/>
+  <circle cx="781" cy="460" r="2.4" fill="#7ee8f2"/>
+
+  <!-- L5 服务:端口 -->
+  <g>
+    <rect x="110" y="476" width="150" height="44" rx="10" fill="#34d3991a" stroke="#34d399" stroke-width="1.5"/>
+    <text x="185" y="495" text-anchor="middle" fill="#f2f6fc" font-size="13" font-weight="600">NetAlertX</text>
+    <text x="185" y="511" text-anchor="middle" fill="#8fa3c0" font-size="10">设备发现</text>
+
+    <rect x="350" y="476" width="150" height="44" rx="10" fill="#34d3991a" stroke="#34d399" stroke-width="1.5"/>
+    <text x="425" y="495" text-anchor="middle" fill="#f2f6fc" font-size="13" font-weight="600">Grafana</text>
+    <text x="425" y="511" text-anchor="middle" fill="#8fa3c0" font-size="10">遥测面板</text>
+
+    <rect x="590" y="476" width="150" height="44" rx="10" fill="#34d3991a" stroke="#34d399" stroke-width="1.5"/>
+    <text x="665" y="495" text-anchor="middle" fill="#f2f6fc" font-size="13" font-weight="600">Jellyfin</text>
+    <text x="665" y="511" text-anchor="middle" fill="#8fa3c0" font-size="10">媒体库</text>
+
+    <rect x="830" y="476" width="150" height="44" rx="10" fill="#34d3991a" stroke="#34d399" stroke-width="1.5"/>
+    <text x="905" y="495" text-anchor="middle" fill="#f2f6fc" font-size="13" font-weight="600">服务:端口</text>
+    <text x="905" y="511" text-anchor="middle" fill="#8fa3c0" font-size="10">42 项探测</text>
+  </g>
+
+  <!-- 底部标语 -->
+  <text x="600" y="562" text-anchor="middle" fill="#67788f" font-size="13.5" letter-spacing="2">互联网 → 网关 → 路由 → 主机 → 服务:端口</text>
+  <text x="600" y="586" text-anchor="middle" fill="#43536b" font-size="11.5">Beszel / NetAlertX 遥测驱动风扇转速与光粒子 · Draco 压缩硬件模型 · CI 自动部署</text>
+</svg>
