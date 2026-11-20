@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>模型广场 - Recall API</title>
+  <link rel="icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/newapi/assets/page.css">
+</head>
+<body data-page="pricing">
+  <header class="nx-header">
+    <a class="nx-brand" href="/newapi/"><span class="nx-mark">R</span><span>Recall API</span></a>
+    <nav class="nx-nav" aria-label="主导航">
+      <a href="/newapi/">主页</a>
+      <a href="https://newapi.shallowrecall.top/console" target="_top">控制台</a>
+      <a class="is-active" href="/newapi/pricing/">模型广场</a>
+      <a href="/newapi/rankings/">排行榜</a>
+      <a href="/newapi/about/">关于</a>
+    </nav>
+    <div class="nx-tools">
+      <a class="nx-tool" href="https://docs.newapi.pro/" target="_blank" rel="noopener noreferrer" title="文档">⌘</a>
+      <a class="nx-tool is-active" href="/newapi/pricing/" title="模型价格">◫</a>
+      <a class="nx-tool" href="/newapi/about/" title="关于">i</a>
+      <a class="nx-console nx-mobile-console" href="https://newapi.shallowrecall.top/console" target="_top">控制台 →</a>
+      <a class="nx-avatar" href="https://newapi.shallowrecall.top/console" target="_top" aria-label="用户控制台">R</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div id="hero-ripple-canvas" data-src="/img/hero-ripple-texture.webp"></div>
+    <div class="page-hero-inner">
+      <p class="page-kicker">MODEL CATALOG · LIVE PRICING</p>
+      <h1 class="page-title">模型广场<span> 一览无余。</span></h1>
+      <p class="page-lead">从统一目录查看全部可用模型、供应商与计费标准。搜索、筛选或打开任意模型，立即确认输入与输出价格。</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong id="hero-model-count" data-count="149" data-suffix="">0</strong><span>可用模型</span></div>
+        <div class="hero-stat"><strong id="hero-vendor-count" data-count="11" data-suffix="">0</strong><span>供应商</span></div>
+        <div class="hero-stat"><strong id="hero-price-version">实时</strong><span>价格目录</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-main">
+    <div class="section-head reveal">
+      <div><p class="section-kicker">ALL MODELS · ONE ENDPOINT</p><h2 class="section-title">选择适合你的模型。</h2></div>
+      <p class="section-copy">价格按当前站内倍率换算为人民币，最终计费以 New API 控制台为准。</p>
+    </div>
+    <div class="filter-bar reveal">
+      <div class="filter-row"><span class="filter-label">供应商</span><div id="vendorChips"></div></div>
+      <div class="filter-row"><span class="filter-label">分组</span><div id="groupChips"></div></div>
+      <div class="filter-row">
+        <div class="search-wrap"><span>⌕</span><input id="searchInput" class="search-input" type="search" placeholder="搜索模型名、供应商或标签"></div>
+        <select id="sortSelect" class="sort-select" aria-label="排序"><option value="default">默认排序</option><option value="price-asc">价格从低到高</option><option value="price-desc">价格从高到低</option><option value="name">按名称</option></select>
+        <span id="resultCount" class="result-count">正在加载模型…</span>
+      </div>
+    </div>
+    <div id="modelGrid" class="model-grid" aria-live="polite"></div>
+  </main>
+
+  <footer class="page-footer"><span>© 2026 Recall API。模型目录会根据控制台配置更新。</span><span><a href="/newapi/">返回首页</a>　<a href="https://github.com/QuantumNous/new-api" target="_blank" rel="noopener noreferrer">Powered by New API</a></span></footer>
+  <div id="modelModal" class="modal" role="dialog" aria-modal="true"><div class="modal-panel"><div id="modelModalBody"></div></div></div>
+  <script type="module" src="/js/hero-ripple.js?v=4.0.0"></script>
+  <script defer src="/newapi/assets/page.js?v=1.0.0"></script>
+</body>
+</html>

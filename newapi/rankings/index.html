@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>排行榜 - Recall API</title>
+  <link rel="icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/newapi/assets/page.css">
+</head>
+<body data-page="rankings">
+  <header class="nx-header">
+    <a class="nx-brand" href="/newapi/"><span class="nx-mark">R</span><span>Recall API</span></a>
+    <nav class="nx-nav" aria-label="主导航">
+      <a href="/newapi/">主页</a>
+      <a href="https://newapi.shallowrecall.top/console" target="_top">控制台</a>
+      <a href="/newapi/pricing/">模型广场</a>
+      <a class="is-active" href="/newapi/rankings/">排行榜</a>
+      <a href="/newapi/about/">关于</a>
+    </nav>
+    <div class="nx-tools">
+      <a class="nx-tool" href="https://docs.newapi.pro/" target="_blank" rel="noopener noreferrer" title="文档">⌘</a>
+      <a class="nx-tool" href="/newapi/pricing/" title="模型价格">◫</a>
+      <a class="nx-tool" href="/newapi/about/" title="关于">i</a>
+      <a class="nx-console nx-mobile-console" href="https://newapi.shallowrecall.top/console" target="_top">控制台 →</a>
+      <a class="nx-avatar" href="https://newapi.shallowrecall.top/console" target="_top" aria-label="用户控制台">R</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div id="hero-ripple-canvas" data-src="/img/hero-ripple-texture.webp"></div>
+    <div class="page-hero-inner">
+      <p class="page-kicker">RANKINGS · MODEL ECOSYSTEM</p>
+      <h1 class="page-title">排行榜<span> 看见生态。</span></h1>
+      <p class="page-lead">从当前模型目录自动生成供应商覆盖榜与价格梯度，帮助你快速判断模型供给、选择范围与接入成本。</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong id="rank-model-count" data-count="149">0</strong><span>已收录模型</span></div>
+        <div class="hero-stat"><strong id="rank-vendor-count" data-count="11">0</strong><span>供应商</span></div>
+        <div class="hero-stat"><strong id="rank-top-vendor">—</strong><span>覆盖第一</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-main">
+    <div class="section-head reveal">
+      <div><p class="section-kicker">SUPPLY COVERAGE</p><h2 class="section-title">模型供给榜。</h2></div>
+      <p class="section-copy">按当前可用模型目录统计，不代表实时调用量。调用明细与用量排行请前往控制台查看。</p>
+    </div>
+    <div class="rank-layout">
+      <section class="rank-board reveal">
+        <div class="rank-board-head"><h2>供应商覆盖</h2><p>按可用模型数量排序</p></div>
+        <div id="rankBoard" class="rank-list"><div class="empty-state">正在加载排行…</div></div>
+      </section>
+      <aside class="price-leaders reveal">
+        <div class="leaders-head"><h2>价格梯度</h2><p>当前目录中输入价格最低的模型</p></div>
+        <div id="priceLeaders"></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="page-footer"><span>© 2026 Recall API。排行榜基于模型目录自动生成。</span><span><a href="/newapi/">返回首页</a>　<a href="/newapi/pricing/">查看模型广场</a></span></footer>
+  <script type="module" src="/js/hero-ripple.js?v=4.0.0"></script>
+  <script defer src="/newapi/assets/page.js?v=1.0.0"></script>
+</body>
+</html>
