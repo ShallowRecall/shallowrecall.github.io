@@ -364,6 +364,97 @@
       console.warn('[Recall Theme] rankings failed', error);
     });
   };
+  const enhanceHome = () => {
+    const main = document.querySelector('main.semi-layout-content');
+    if (!main) return;
+    if (main.querySelector('iframe')) {
+      document.body.classList.remove('recall-native-home');
+      document.getElementById('recall-native-home')?.remove();
+      return;
+    }
+    document.body.classList.add('recall-native-home');
+    let root = document.getElementById('recall-native-home');
+    if (!root) {
+      root = document.createElement('div');
+      root.id = 'recall-native-home';
+      root.innerHTML = `
+        <section class="recall-home-hero">
+          <div id="hero-ripple-canvas" data-src="${RIPPLE_TEXTURE}"></div>
+          <div class="recall-home-hero-inner">
+            <p class="recall-home-kicker">DIVERSIFIED AI RELAY SERVICE</p>
+            <h1 class="recall-home-title">Recall API<span>为规模而设计</span></h1>
+            <p class="recall-home-lead">通过统一、标准的接口协议接入海量模型。把路由、重试、额度与用量放回同一张控制台，让复杂的上游差异留在网关之后。</p>
+            <div class="recall-home-actions">
+              <a class="primary" href="/console">前往控制台 <span>→</span></a>
+              <a href="/pricing">浏览可用模型和价格</a>
+            </div>
+            <div class="recall-home-stats">
+              <div class="recall-home-stat"><strong data-home-models>—</strong><span>可用模型</span></div>
+              <div class="recall-home-stat"><strong data-home-vendors>—</strong><span>上游供应商</span></div>
+              <div class="recall-home-stat"><strong>OpenAI</strong><span>兼容协议</span></div>
+            </div>
+            <div class="recall-home-providers" aria-label="支持的模型供应商"></div>
+          </div>
+          <a class="recall-home-scroll" href="#recall-home-capabilities">Scroll to explore</a>
+        </section>
+        <section class="recall-home-section" id="recall-home-capabilities">
+          <div class="recall-home-section-inner">
+            <p class="recall-home-kicker">ONE ENDPOINT · EVERY MODEL</p>
+            <h2 class="recall-home-section-title">一个 API，接入所有模型。</h2>
+            <p class="recall-home-section-lead">用同一个基础地址调用不同供应商。模型目录、密钥、余额和用量都在控制台集中管理，减少多套账号与重复适配。</p>
+            <div class="recall-home-feature-grid">
+              <article class="recall-home-feature"><div class="recall-home-feature-icon">⌘</div><h3>统一接口</h3><p>兼容常见 OpenAI SDK 与调用方式，减少为不同上游重复改代码。</p></article>
+              <article class="recall-home-feature"><div class="recall-home-feature-icon">◫</div><h3>透明目录</h3><p>实时查看可用模型、供应商、端点和站内价格，计费标准清晰可见。</p></article>
+              <article class="recall-home-feature"><div class="recall-home-feature-icon">↗</div><h3>集中管理</h3><p>令牌、余额、调用记录和模型切换统一收进一个控制台。</p></article>
+            </div>
+          </div>
+        </section>
+        <section class="recall-home-section">
+          <div class="recall-home-section-inner recall-home-cta">
+            <div>
+              <p class="recall-home-kicker">READY WHEN YOU ARE</p>
+              <h2 class="recall-home-section-title">准备好开始了吗？</h2>
+              <p class="recall-home-section-lead">先查看当前模型目录与价格，再进入控制台创建令牌并开始调用。</p>
+            </div>
+            <div class="recall-home-actions">
+              <a class="primary" href="/console">进入控制台 →</a>
+              <a href="/pricing">查看模型价格</a>
+            </div>
+          </div>
+        </section>`;
+      main.appendChild(root);
+    }
+    if (root.dataset.ready === '1') {
+      loadRipple();
+      return;
+    }
+    root.dataset.ready = '1';
+    revealElements([root.querySelector('.recall-home-hero-inner'), root.querySelector('#recall-home-capabilities'), root.querySelectorAll('.recall-home-feature').item(0), root.querySelectorAll('.recall-home-feature').item(1), root.querySelectorAll('.recall-home-feature').item(2), root.querySelector('.recall-home-section:last-child')]);
+    loadRipple();
+    if (!pricingPromise) {
+      pricingPromise = fetch('/api/pricing', { credentials: 'omit' }).then((response) => {
+        if (!response.ok) throw new Error('pricing request failed: ' + response.status);
+        return response.json();
+      });
+    }
+    pricingPromise.then((payload) => {
+      const models = Array.isArray(payload?.data) ? payload.data.length : 0;
+      const vendors = Array.isArray(payload?.vendors) ? payload.vendors : [];
+      const modelStat = root.querySelector('[data-home-models]');
+      const vendorStat = root.querySelector('[data-home-vendors]');
+      if (modelStat) { modelStat.dataset.countTo = String(models); modelStat.textContent = '0'; }
+      if (vendorStat) { vendorStat.dataset.countTo = String(vendors.length); vendorStat.textContent = '0'; }
+      const providerRoot = root.querySelector('.recall-home-providers');
+      if (providerRoot) {
+        providerRoot.innerHTML = vendors.slice(0, 8).map((vendor) => '<span>' + escapeHtml(vendor.name) + '</span>').join('');
+      }
+      animateCounters(root);
+    }).catch(() => {
+      const providerRoot = root.querySelector('.recall-home-providers');
+      if (providerRoot) providerRoot.innerHTML = '<span>OpenAI</span><span>Anthropic</span><span>Gemini</span><span>DeepSeek</span><span>GLM</span><span>Grok</span>';
+    });
+    scheduleScrollEffects();
+  };
   const enhance = () => {
     if (enhanceQueued) return;
     enhanceQueued = true;
@@ -378,6 +469,7 @@
       if (page === 'pricing') enhancePricing();
       if (page === 'about') enhanceAbout();
       if (page === 'rankings') enhanceRankings();
+      if (page === 'home') enhanceHome();
     });
   };
 
