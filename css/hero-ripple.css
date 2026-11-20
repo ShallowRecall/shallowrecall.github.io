@@ -1,0 +1,497 @@
+/* ==========================================================================
+   Hero Ripple — 首页全屏动效横幅
+   --------------------------------------------------------------------------
+   复刻 moxuna.com 首页的 React Bits Ripple Distortion 液态扭曲背景，左侧大字号排版，
+   底部一条技术栈跑马灯。只作用于首页的 #page-header.full_page，其它页面
+   （文章页、归档页等用的是 not-home-page / post-bg）完全不受影响。
+   ========================================================================== */
+
+#page-header.full_page {
+    --hero-ink: #eef3f8;
+    --hero-ink-soft: rgba(230, 238, 246, 0.62);
+    --hero-line: rgba(255, 255, 255, 0.16);
+    --hero-pad: clamp(20px, 5vw, 64px);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100svh;
+    min-height: 560px;
+    padding-bottom: clamp(28px, 7vh, 84px);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* --------------------------------------------------------------------------
+   背景层：与原站一致的图片贴图 + canvas 液态扭曲 + 55% 黑色遮罩
+   -------------------------------------------------------------------------- */
+
+#hero-ripple-fx {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #000;
+    pointer-events: none;
+}
+
+.hero-ripple-fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+}
+
+#hero-ripple-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+#hero-ripple-canvas canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 原站首页使用的整体压暗：background: rgba(0,0,0,.55) */
+#hero-ripple-fx .hero-ripple-veil {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+/* --------------------------------------------------------------------------
+   导航条：压在动效上时保持透明，滚动固定后交回主题的浅色样式
+   -------------------------------------------------------------------------- */
+
+#page-header.full_page:not(.nav-fixed) #nav {
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+#page-header.full_page:not(.nav-fixed) #nav a,
+#page-header.full_page:not(.nav-fixed) #nav .site-name,
+#page-header.full_page:not(.nav-fixed) #nav #blog-info {
+    color: rgba(240, 246, 252, 0.9);
+    text-shadow: none;
+}
+
+#page-header.full_page:not(.nav-fixed) #nav a:hover,
+#page-header.full_page:not(.nav-fixed) #nav #blog-info:hover {
+    color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   内容区
+   -------------------------------------------------------------------------- */
+
+#page-header.full_page #site-info {
+    position: relative;
+    top: auto;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--hero-pad);
+    text-align: left;
+}
+
+#page-header.full_page .hero-ripple-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0 0 clamp(14px, 2.4vh, 26px);
+    font-size: clamp(11px, 1vw, 12.5px);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--hero-ink-soft);
+}
+
+#page-header.full_page .hero-ripple-spark {
+    font-size: 0.95em;
+    color: #9db2c7;
+    animation: hero-ripple-twinkle 6s ease-in-out infinite;
+}
+
+#page-header.full_page #site-title {
+    margin: 0;
+    padding: 0;
+    font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: clamp(1.55rem, 3.1vw, 2.7rem) !important;
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: -0.012em;
+    color: var(--hero-ink);
+    text-align: left;
+    text-shadow: none;
+}
+
+#page-header.full_page .hero-ripple-tagline {
+    margin: clamp(6px, 1.1vh, 14px) 0 0;
+    font-size: clamp(2.05rem, 5.4vw, 4.3rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #f4f8fc;
+    text-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+    background: linear-gradient(92deg, #ffffff 0%, #f4f8fc 46%, rgba(206, 219, 232, 0.82) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#page-header.full_page .hero-ripple-desc {
+    max-width: 34em;
+    margin: clamp(14px, 2.4vh, 26px) 0 0;
+    font-size: clamp(0.9rem, 1.1vw, 1.02rem);
+    line-height: 1.85;
+    color: rgba(222, 231, 240, 0.66);
+}
+
+/* 按钮 ------------------------------------------------------------------- */
+
+#page-header.full_page .hero-ripple-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: clamp(22px, 3.4vh, 36px);
+}
+
+#page-header.full_page .hero-ripple-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.86rem 1.6rem;
+    border: 1px solid var(--hero-line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.045);
+    color: #eaf0f7;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s, border-color 0.4s, color 0.4s, box-shadow 0.4s;
+}
+
+#page-header.full_page .hero-ripple-btn i {
+    font-size: 0.82em;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#page-header.full_page .hero-ripple-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.34);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+#page-header.full_page .hero-ripple-btn.is-primary {
+    border-color: #f2f6fa;
+    background: #f2f6fa;
+    color: #080c12;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+}
+
+#page-header.full_page .hero-ripple-btn.is-primary:hover {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #05080d;
+}
+
+#page-header.full_page .hero-ripple-btn:hover .fa-arrow-right {
+    transform: translateX(4px);
+}
+
+/* 社交图标 --------------------------------------------------------------- */
+
+#page-header.full_page #site_social_icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* 主题把这块写死成 width:300px + margin:auto，这里改回内容宽度并左对齐 */
+    width: auto;
+    max-width: 100%;
+    gap: 10px;
+    margin: clamp(20px, 3vh, 30px) 0 0;
+    text-align: left;
+}
+
+#page-header.full_page #site_social_icons .social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(238, 245, 251, 0.72) !important;
+    font-size: 1rem;
+    opacity: 1;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, background-color 0.4s, color 0.4s;
+}
+
+#page-header.full_page #site_social_icons .social-icon:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.36);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff !important;
+}
+
+#page-header.full_page #site_social_icons .social-icon svg.icon {
+    width: 1em;
+    height: 1em;
+    font-size: 0.95rem;
+    fill: currentColor;
+}
+
+/* 技术栈跑马灯 ----------------------------------------------------------- */
+
+#page-header.full_page .hero-ripple-stack {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2vw, 28px);
+    margin-top: clamp(30px, 5.2vh, 60px);
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#page-header.full_page .hero-ripple-stack-label {
+    flex: 0 0 auto;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(228, 237, 246, 0.42);
+    white-space: nowrap;
+}
+
+#page-header.full_page .hero-ripple-stack-viewport {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 92%, transparent 100%);
+}
+
+#page-header.full_page .hero-ripple-stack-track {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 3.4vw, 52px);
+    width: max-content;
+    animation: hero-ripple-marquee 42s linear infinite;
+    will-change: transform;
+}
+
+#page-header.full_page .hero-ripple-stack-viewport:hover .hero-ripple-stack-track {
+    animation-play-state: paused;
+}
+
+#page-header.full_page .hero-ripple-stack-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(232, 240, 248, 0.58);
+    white-space: nowrap;
+    transition: color 0.3s;
+}
+
+#page-header.full_page .hero-ripple-stack-item:hover {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+#page-header.full_page .hero-ripple-stack-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(150, 172, 194, 0.6);
+}
+
+/* 首页不需要“下滑”箭头，跑马灯已经说明下面还有内容 */
+#page-header.full_page #scroll-down {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   动效
+   -------------------------------------------------------------------------- */
+
+@keyframes hero-ripple-rise {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 24px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes hero-ripple-marquee {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@keyframes hero-ripple-twinkle {
+
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: scale(0.92);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.06);
+    }
+}
+
+@keyframes hero-ripple-veil-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#hero-ripple-fx {
+    animation: hero-ripple-veil-in 1.2s ease-out both;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner {
+    display: block;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner > * {
+    animation: hero-ripple-rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner > :nth-child(1) {
+    animation-delay: 0.06s;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner > :nth-child(2) {
+    animation-delay: 0.14s;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner > :nth-child(3) {
+    animation-delay: 0.22s;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner > :nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner > :nth-child(5) {
+    animation-delay: 0.38s;
+}
+
+#page-header.full_page #site-info > .hero-ripple-inner > :nth-child(6) {
+    animation-delay: 0.46s;
+}
+
+#page-header.full_page .hero-ripple-stack {
+    animation: hero-ripple-rise 1s cubic-bezier(0.16, 1, 0.3, 1) 0.56s both;
+}
+
+/* --------------------------------------------------------------------------
+   响应式
+   -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 768px) {
+    #page-header.full_page {
+        justify-content: center;
+        padding-bottom: clamp(24px, 6vh, 48px);
+        min-height: 520px;
+    }
+
+    #page-header.full_page #site-info {
+        padding-top: 96px;
+    }
+
+    #page-header.full_page #site-title {
+        font-size: clamp(1.15rem, 4.4vw, 1.5rem) !important;
+    }
+
+    #page-header.full_page .hero-ripple-tagline {
+        font-size: clamp(1.75rem, 7.6vw, 2.3rem);
+    }
+
+    #page-header.full_page .hero-ripple-desc {
+        max-width: none;
+        font-size: 0.86rem;
+    }
+
+    #page-header.full_page .hero-ripple-btn {
+        padding: 0.8rem 1.35rem;
+        font-size: 0.9rem;
+    }
+
+    #page-header.full_page .hero-ripple-stack {
+        margin-top: 26px;
+        gap: 12px;
+    }
+
+    #page-header.full_page .hero-ripple-stack-label {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #page-header.full_page #site_social_icons .social-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    /* 小屏上右侧跑马灯会被左下角看板娘挡住，直接收起 */
+    #page-header.full_page .hero-ripple-stack {
+        display: none;
+    }
+}
+
+/* 减少动效：关闭入场、跑马灯与星星闪烁，画面保留静态一帧 */
+@media (prefers-reduced-motion: reduce) {
+
+    #page-header.full_page #site-info > .hero-ripple-inner > *,
+    #page-header.full_page .hero-ripple-stack,
+    #hero-ripple-fx,
+    #page-header.full_page .hero-ripple-spark {
+        animation: none !important;
+    }
+
+    #page-header.full_page .hero-ripple-stack-track {
+        animation: none;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    #page-header.full_page .hero-ripple-stack-viewport {
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    #page-header.full_page .hero-ripple-btn:hover,
+    #page-header.full_page #site_social_icons .social-icon:hover {
+        transform: none;
+    }
+}

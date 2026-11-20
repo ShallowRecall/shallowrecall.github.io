@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="AI agent 穿过三道闸门进入内网服务">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#060c16"/>
+      <stop offset="0.55" stop-color="#0a1424"/>
+      <stop offset="1" stop-color="#091020"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38e8c8" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#4fe6cd" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#38e8c8" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#38e8c8" stop-opacity="0.26"/>
+      <stop offset="0.55" stop-color="#38e8c8" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#38e8c8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#16263c" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.45"/>
+  <ellipse cx="600" cy="315" rx="330" ry="270" fill="url(#halo)"/>
+
+  <!-- 三道同心闸：由内到外 = 白名单 / 确认码 / 审计 -->
+  <g fill="none" stroke-linecap="round">
+    <rect x="470" y="150" width="260" height="330" rx="24" stroke="#3f8fb8" stroke-width="1.8" stroke-dasharray="3 8" opacity="0.95"/>
+    <rect x="410" y="110" width="380" height="410" rx="30" stroke="#357fa6" stroke-width="1.6" stroke-dasharray="3 11" opacity="0.62"/>
+    <rect x="350" y="86"  width="500" height="462" rx="36" stroke="#2b6c8e" stroke-width="1.4" stroke-dasharray="3 14" opacity="0.38"/>
+  </g>
+
+  <!-- 门的立柱与光缝 -->
+  <g filter="url(#glow)">
+    <rect x="566" y="176" width="13" height="278" rx="6.5" fill="#38e8c8" opacity="0.9"/>
+    <rect x="621" y="176" width="13" height="278" rx="6.5" fill="#38e8c8" opacity="0.9"/>
+  </g>
+  <rect x="590" y="150" width="20" height="330" fill="url(#beam)"/>
+
+  <!-- 标注：贴在每道闸的右上角，引线只连到角点 -->
+  <g font-family="'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif" font-size="15">
+    <g stroke="#4f9cc0" stroke-width="1" opacity="0.85">
+      <path d="M730 150 H746"/><path d="M790 110 H806"/><path d="M850 86 H866"/>
+    </g>
+    <text x="754" y="155" fill="#8fe4d0">01 白名单</text>
+    <text x="814" y="115" fill="#7fd2c0" opacity="0.85">02 确认码</text>
+    <text x="874" y="91"  fill="#6fbfb0" opacity="0.7">03 审计日志</text>
+  </g>
+
+  <!-- 左侧：agent 的尝试，止步于最外层闸门 -->
+  <g>
+    <circle cx="150" cy="315" r="30" fill="none" stroke="#e0a34a" stroke-width="1.5" opacity="0.85"/>
+    <circle cx="150" cy="315" r="6" fill="#e0a34a" filter="url(#glow)"/>
+    <path d="M192 315 H336" stroke="#e0a34a" stroke-width="1.6" stroke-dasharray="7 7" opacity="0.7"/>
+    <circle cx="340" cy="315" r="4" fill="#e0a34a" opacity="0.95"/>
+    <text x="150" y="372" font-family="'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif"
+          font-size="14" fill="#c9a273" text-anchor="middle" opacity="0.9">AI Agent</text>
+  </g>
+
+  <!-- 右侧：通过后的服务群 -->
+  <g>
+    <path d="M850 315 C 896 315, 896 430, 928 430" stroke="#2c7f74" stroke-width="1.4" fill="none" opacity="0.6"/>
+    <g fill="#38e8c8">
+      <circle cx="930" cy="430" r="4.5"/>
+      <circle cx="990" cy="466" r="4.5"/>
+      <circle cx="1050" cy="426" r="4.5"/>
+      <circle cx="930" cy="520" r="4.5"/>
+      <circle cx="990" cy="486" r="4.5"/>
+      <circle cx="1050" cy="522" r="4.5"/>
+    </g>
+    <g stroke="#1f6d63" stroke-width="1" opacity="0.55" fill="none">
+      <path d="M930 430 L990 466 M990 466 L1050 426 M930 520 L990 486 M990 486 L1050 522 M990 466 L990 486"/>
+    </g>
+    <text x="990" y="566" font-family="'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif"
+          font-size="14" fill="#7fd8c4" text-anchor="middle" opacity="0.8">13 个内网服务</text>
+  </g>
+
+  <!-- 底部说明：与左下角标错开 -->
+  <g font-family="'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">
+    <text x="128" y="566" font-size="15" fill="#5c7590" letter-spacing="3">ONE ENDPOINT · TWO-STEP CONFIRM · FULL AUDIT</text>
+    <text x="128" y="596" font-size="13" fill="#3f566d" letter-spacing="2">MUSE BRIDGE / HOMELAB</text>
+  </g>
+
+  <g stroke="#24425c" stroke-width="1.4" opacity="0.75" fill="none">
+    <path d="M40 40 H96 M40 40 V96"/>
+    <path d="M1160 40 H1104 M1160 40 V96"/>
+    <path d="M40 590 H96 M40 590 V534"/>
+    <path d="M1160 590 H1104 M1160 590 V534"/>
+  </g>
+</svg>
