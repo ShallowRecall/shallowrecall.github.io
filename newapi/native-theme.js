@@ -129,6 +129,128 @@
     }
   };
 
+  const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+
+  const money = (value) => {
+    if (!Number.isFinite(value) || value <= 0) return '—';
+    if (value >= 1000) return '¥' + Math.round(value).toLocaleString('en-US');
+    return '¥' + value.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  };
+
+  const modelPrice = (model) => {
+    if (model.quota_type !== 0) return Number(model.model_price || 0) * 7.3;
+    return Number(model.model_ratio || 0) * 2 * 7.3;
+  };
+
+  const ensureRankingsNav = () => {
+    const nav = document.querySelector('.app-layout > .semi-layout-header nav');
+    if (!nav || nav.querySelector('a[href="/rankings"]')) return;
+    const docs = Array.from(nav.querySelectorAll('a')).find((link) => (link.getAttribute('href') || '').includes('docs.newapi.pro'));
+    const link = document.createElement('a');
+    link.href = '/rankings';
+    link.innerHTML = '<span>排行榜</span>';
+    link.className = docs ? docs.className : 'flex-shrink-0 flex items-center gap-1 font-semibold rounded-md transition-all duration-200 ease-in-out p-2 hover:text-semi-color-primary';
+    if (docs) docs.before(link);
+    else nav.appendChild(link);
+  };
+
+  const enhanceRankings = () => {
+    const main = document.querySelector('main.semi-layout-content');
+    if (!main) return;
+    let root = document.getElementById('recall-rankings-root');
+    if (!root) {
+      root = document.createElement('div');
+      root.id = 'recall-rankings-root';
+      main.appendChild(root);
+    }
+    if (root.dataset.ready === '1') {
+      loadRipple();
+      return;
+    }
+    if (root.dataset.loading === '1') return;
+    root.dataset.loading = '1';
+    root.innerHTML = '<div class="recall-rank-loading">正在生成模型供给排行…</div>';
+
+    if (!pricingPromise) {
+      pricingPromise = fetch('/api/pricing', { credentials: 'omit' })
+        .then((response) => {
+          if (!response.ok) throw new Error('pricing request failed: ' + response.status);
+          return response.json();
+        });
+    }
+
+    pricingPromise.then((payload) => {
+      const models = Array.isArray(payload?.data) ? payload.data : [];
+      const vendors = Array.isArray(payload?.vendors) ? payload.vendors : [];
+      const vendorById = new Map(vendors.map((vendor) => [vendor.id, vendor.name]));
+      const coverage = new Map();
+      models.forEach((model) => {
+        const vendor = vendorById.get(model.vendor_id) || '未知供应商';
+        const current = coverage.get(vendor) || { count: 0, models: [] };
+        current.count += 1;
+        current.models.push(model.model_name);
+        coverage.set(vendor, current);
+      });
+      const ranked = Array.from(coverage.entries()).sort((a, b) => b[1].count - a[1].count);
+      const max = ranked[0]?.[1].count || 1;
+      const priced = models
+        .map((model) => ({ model, price: modelPrice(model), vendor: vendorById.get(model.vendor_id) || '未知供应商' }))
+        .filter((item) => item.price > 0)
+        .sort((a, b) => a.price - b.price)
+        .slice(0, 7);
+
+      const rankRows = ranked.map(([vendor, item], index) => `
+        <div class="recall-rank-row">
+          <div class="recall-rank-no">${String(index + 1).padStart(2, '0')}</div>
+          <div class="recall-rank-name"><strong>${escapeHtml(vendor)}</strong><span>${escapeHtml(item.models.slice(0, 2).join(' · '))}</span></div>
+          <div class="recall-rank-bar"><i data-width="${Math.max(8, item.count / max * 100)}%"></i></div>
+          <div class="recall-rank-count">${item.count} 个</div>
+        </div>`).join('');
+
+      const priceRows = priced.map(({ model, price, vendor }) => `
+        <div class="recall-price-leader">
+          <div><strong>${escapeHtml(model.model_name)}</strong><span>${escapeHtml(vendor)} · 输入价格</span></div>
+          <b>${money(price)}</b>
+        </div>`).join('');
+
+      root.innerHTML = `
+        <section class="recall-rank-hero">
+          <div id="hero-ripple-canvas" data-src="${RIPPLE_TEXTURE}"></div>
+          <div class="recall-rank-hero-inner">
+            <p class="recall-hero-kicker">RANKINGS · MODEL ECOSYSTEM</p>
+            <h1>排行榜<span> 看见生态。</span></h1>
+            <p>从当前模型目录自动生成供应商覆盖榜与价格梯度，帮助你快速判断模型供给、选择范围与接入成本。</p>
+            <div class="recall-rank-stats">
+              <div><strong>${models.length}</strong><span>已收录模型</span></div>
+              <div><strong>${vendors.length}</strong><span>供应商</span></div>
+              <div><strong>${escapeHtml(ranked[0]?.[0] || '—')}</strong><span>覆盖第一</span></div>
+            </div>
+          </div>
+        </section>
+        <div class="recall-rank-grid">
+          <section class="recall-rank-panel">
+            <div class="recall-rank-panel-head"><h2>模型供给榜。</h2><p>按当前可用模型目录统计，不代表实时调用量</p></div>
+            ${rankRows}
+          </section>
+          <aside class="recall-rank-panel">
+            <div class="recall-rank-panel-head"><h2>价格梯度。</h2><p>当前目录中输入价格最低的模型</p></div>
+            ${priceRows}
+          </aside>
+        </div>`;
+      root.dataset.ready = '1';
+      root.dataset.loading = '0';
+      requestAnimationFrame(() => {
+        root.querySelectorAll('.recall-rank-bar i').forEach((bar) => {
+          bar.style.width = bar.dataset.width || '0%';
+        });
+      });
+      loadRipple();
+    }).catch((error) => {
+      root.dataset.loading = '0';
+      root.innerHTML = '<div class="recall-rank-loading">排行榜数据加载失败，请刷新页面重试。</div>';
+      console.warn('[Recall Theme] rankings failed', error);
+    });
+  };
   const enhance = () => {
     if (enhanceQueued) return;
     enhanceQueued = true;
