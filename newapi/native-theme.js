@@ -114,12 +114,23 @@
 
     const page = pageName();
     const activeHref = page === 'home' ? '/' : page === 'auth' ? '/login' : page === 'console' ? '/console' : '/' + page;
+    let activeLink = null;
     bar.querySelectorAll('nav a').forEach((link) => {
       const active = link.getAttribute('href') === activeHref;
       link.classList.toggle('is-active', active);
-      if (active) link.setAttribute('aria-current', 'page');
-      else link.removeAttribute('aria-current');
+      if (active) {
+        activeLink = link;
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     });
+    const nav = bar.querySelector('nav');
+    if (nav && activeLink && nav.scrollWidth > nav.clientWidth) {
+      requestAnimationFrame(() => {
+        nav.scrollLeft = Math.max(0, activeLink.offsetLeft - (nav.clientWidth - activeLink.clientWidth) / 2);
+      });
+    }
   };
 
   const scrollHost = () => {
