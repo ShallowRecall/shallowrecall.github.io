@@ -1201,3 +1201,18 @@ body[data-recall-page] .recall-reveal {
     right: 18px;
   }
 }
+body[data-recall-page="rankings"] main.semi-layout-content,
+body[data-recall-page="about"] main.semi-layout-content {
+  height: calc(100vh - 72px) !important;
+  max-height: calc(100vh - 72px) !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+
+@media (max-width: 900px) {
+  body[data-recall-page="rankings"] main.semi-layout-content,
+  body[data-recall-page="about"] main.semi-layout-content {
+    height: calc(100vh - 66px) !important;
+    max-height: calc(100vh - 66px) !important;
+  }
+}
