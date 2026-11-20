@@ -7,6 +7,8 @@
   let rippleModulePromise = null;
   let revealObserver = null;
   let pricingPromise = null;
+  const boundScrollHosts = new WeakSet();
+  let scrollFrame = 0;
 
   const pageName = () => {
     const path = (location.pathname || '/').replace(/\/+$/, '') || '/';
@@ -53,6 +55,116 @@
     else root.appendChild(row);
   };
 
+  const ensureRevealObserver = () => {
+    if (!revealObserver && 'IntersectionObserver' in window) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.08, rootMargin: '40px 0px' });
+    }
+    return revealObserver;
+  };
+
+  const revealElements = (elements) => {
+    const observer = ensureRevealObserver();
+    Array.from(elements).filter(Boolean).forEach((element, index) => {
+      if (element.dataset.recallReveal === '1') return;
+      element.dataset.recallReveal = '1';
+      element.classList.add('recall-reveal');
+      element.style.transitionDelay = Math.min(index * 55, 330) + 'ms';
+      if (observer) observer.observe(element);
+      else element.classList.add('is-visible');
+    });
+  };
+
+  const animateCounters = (root = document) => {
+    root.querySelectorAll('[data-count-to]').forEach((element) => {
+      if (element.dataset.counted === '1') return;
+      element.dataset.counted = '1';
+      const target = Number(element.dataset.countTo || 0);
+      const suffix = element.dataset.countSuffix || '';
+      const duration = 1400;
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        element.textContent = Math.round(target * eased).toLocaleString('en-US') + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  };
+
+  const ensureTabBar = () => {
+    const shell = document.querySelector('.app-layout > .semi-layout-header');
+    const bar = shell && shell.querySelector(':scope > header');
+    if (!shell || !bar) return;
+    shell.classList.add('recall-tab-shell');
+    bar.classList.add('recall-tab-bar');
+
+    if (!bar.querySelector('.recall-tab-progress')) {
+      const progress = document.createElement('span');
+      progress.className = 'recall-tab-progress';
+      progress.innerHTML = '<i></i>';
+      bar.appendChild(progress);
+    }
+
+    const page = pageName();
+    const activeHref = page === 'home' ? '/' : page === 'auth' ? '/login' : page === 'console' ? '/console' : '/' + page;
+    bar.querySelectorAll('nav a').forEach((link) => {
+      const active = link.getAttribute('href') === activeHref;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  };
+
+  const scrollHost = () => {
+    if (pageName() === 'pricing') return document.querySelector('.pricing-content');
+    return document.querySelector('main.semi-layout-content') || document.scrollingElement;
+  };
+
+  const updateScrollEffects = () => {
+    scrollFrame = 0;
+    const host = scrollHost();
+    if (!host) return;
+    const isRoot = host === document.scrollingElement;
+    const top = isRoot ? (window.scrollY || 0) : (host.scrollTop || 0);
+    const max = isRoot
+      ? Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+      : Math.max(1, host.scrollHeight - host.clientHeight);
+    const pageProgress = Math.min(1, Math.max(0, top / max));
+    const heroProgress = Math.min(1, Math.max(0, top / 260));
+    document.body.style.setProperty('--recall-page-progress', pageProgress.toFixed(4));
+    document.body.style.setProperty('--recall-hero-scroll', heroProgress.toFixed(4));
+
+    const shell = document.querySelector('.app-layout > .semi-layout-header');
+    if (shell) {
+      const scrolled = top > 18;
+      if (shell.classList.contains('is-scrolled') !== scrolled) {
+        shell.classList.toggle('is-scrolled', scrolled);
+      }
+    }
+    const progress = document.querySelector('.recall-tab-progress i');
+    if (progress) progress.style.setProperty('--recall-progress-width', (pageProgress * 100).toFixed(2) + '%');
+  };
+
+  const scheduleScrollEffects = () => {
+    if (scrollFrame) return;
+    scrollFrame = requestAnimationFrame(updateScrollEffects);
+  };
+
+  const bindScrollHosts = () => {
+    const host = scrollHost();
+    if (host && !boundScrollHosts.has(host)) {
+      boundScrollHosts.add(host);
+      host.addEventListener('scroll', scheduleScrollEffects, { passive: true });
+    }
+    scheduleScrollEffects();
+  };
   const loadRipple = async () => {
     const mount = document.getElementById('hero-ripple-canvas');
     if (!mount || mount.dataset.rippleReady === '1') return;
@@ -90,23 +202,7 @@
     }
     loadRipple();
 
-    if (!revealObserver && 'IntersectionObserver' in window) {
-      revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-visible');
-          revealObserver.unobserve(entry.target);
-        });
-      }, { threshold: 0.08, rootMargin: '40px 0px' });
-    }
-
-    document.querySelectorAll('.pricing-content .semi-card').forEach((card) => {
-      if (card.closest('.pricing-search-header') || card.dataset.recallReveal === '1') return;
-      card.dataset.recallReveal = '1';
-      card.classList.add('recall-reveal');
-      if (revealObserver) revealObserver.observe(card);
-      else card.classList.add('is-visible');
-    });
+    revealElements(Array.from(document.querySelectorAll('.pricing-content .semi-card')).filter((card) => !card.closest('.pricing-search-header')));
   };
 
   const enhanceAbout = () => {
@@ -129,6 +225,7 @@
       if (firstParagraph) firstParagraph.insertAdjacentElement('beforebegin', badges);
       else content.appendChild(badges);
     }
+    revealElements([shell, ...content.querySelectorAll('h2, p, li')]);
   };
 
   const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -223,8 +320,8 @@
             <h1>排行榜<span> 看见生态。</span></h1>
             <p>从当前模型目录自动生成供应商覆盖榜与价格梯度，帮助你快速判断模型供给、选择范围与接入成本。</p>
             <div class="recall-rank-stats">
-              <div><strong>${models.length}</strong><span>已收录模型</span></div>
-              <div><strong>${vendors.length}</strong><span>供应商</span></div>
+              <div><strong data-count-to="${models.length}">0</strong><span>已收录模型</span></div>
+              <div><strong data-count-to="${vendors.length}">0</strong><span>供应商</span></div>
               <div><strong>${escapeHtml(ranked[0]?.[0] || '—')}</strong><span>覆盖第一</span></div>
             </div>
           </div>
@@ -241,12 +338,15 @@
         </div>`;
       root.dataset.ready = '1';
       root.dataset.loading = '0';
+      animateCounters(root);
+      revealElements([root.querySelector('.recall-rank-hero'), ...root.querySelectorAll('.recall-rank-panel')]);
       requestAnimationFrame(() => {
         root.querySelectorAll('.recall-rank-bar i').forEach((bar) => {
           bar.style.width = bar.dataset.width || '0%';
         });
       });
       loadRipple();
+      scheduleScrollEffects();
     }).catch((error) => {
       root.dataset.loading = '0';
       root.innerHTML = '<div class="recall-rank-loading">排行榜数据加载失败，请刷新页面重试。</div>';
@@ -260,7 +360,9 @@
       enhanceQueued = false;
       forceDarkTheme();
       const page = pageName();
+      ensureTabBar();
       ensureRankingsNav();
+      bindScrollHosts();
       if (page !== 'rankings') document.getElementById('recall-rankings-root')?.remove();
       if (page === 'pricing') enhancePricing();
       if (page === 'about') enhanceAbout();
@@ -291,6 +393,8 @@
 
   window.addEventListener('popstate', scheduleEnhance);
   window.addEventListener('hashchange', scheduleEnhance);
+  window.addEventListener('scroll', scheduleScrollEffects, { passive: true });
+  window.addEventListener('resize', scheduleScrollEffects, { passive: true });
   document.addEventListener('pointermove', (event) => {
     document.body?.style.setProperty('--recall-mx', event.clientX + 'px');
     document.body?.style.setProperty('--recall-my', event.clientY + 'px');

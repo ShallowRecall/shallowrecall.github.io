@@ -998,3 +998,206 @@ body[data-recall-page="rankings"] main.semi-layout-content > :not(#recall-rankin
   body[data-recall-page] .app-layout > .semi-layout-header nav a[href*="docs.newapi.pro"] { order: 5; }
   body[data-recall-page] .app-layout > .semi-layout-header nav a[href="/about"] { order: 6; }
 }
+/* Floating glass tab bar, aligned with the reference site's fixed navigation. */
+body[data-recall-page] {
+  --recall-page-progress: 0;
+  --recall-hero-scroll: 0;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header {
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: 72px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  pointer-events: none !important;
+  transform: none !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header > header {
+  width: min(1160px, calc(100% - 32px)) !important;
+  height: 54px !important;
+  margin: 9px auto 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  overflow: visible !important;
+  border: 1px solid rgba(255, 255, 255, .15) !important;
+  border-radius: 999px !important;
+  background:
+    linear-gradient(180deg, rgba(28, 30, 35, .72), rgba(12, 14, 18, .64)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    0 12px 40px rgba(0, 0, 0, .22) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.55) !important;
+  backdrop-filter: blur(22px) saturate(1.55) !important;
+  pointer-events: auto !important;
+  transition:
+    width .7s cubic-bezier(.16, 1, .3, 1),
+    background .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease,
+    transform .35s ease !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header.recall-tab-shell.is-scrolled > header {
+  width: min(1000px, calc(100% - 32px)) !important;
+  border-color: rgba(255, 255, 255, .2) !important;
+  background:
+    linear-gradient(180deg, rgba(34, 36, 42, .82), rgba(12, 14, 18, .76)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .14),
+    0 18px 58px rgba(0, 0, 0, .32) !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header > header > div,
+body[data-recall-page] .app-layout > .semi-layout-header > header > div > div {
+  height: 100% !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header > header > div {
+  padding-left: 14px !important;
+  padding-right: 10px !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header nav {
+  height: 42px !important;
+  padding: 0 4px !important;
+  align-items: center !important;
+  gap: 2px !important;
+  scrollbar-width: none !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header nav::-webkit-scrollbar {
+  display: none !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header nav a {
+  padding: 7px 10px !important;
+  border-radius: 9px !important;
+  font-size: 12.5px !important;
+  line-height: 1 !important;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header nav a:hover,
+body[data-recall-page] .app-layout > .semi-layout-header nav a[aria-current="page"],
+body[data-recall-page] .app-layout > .semi-layout-header nav a.is-active {
+  background: rgba(255, 255, 255, .1) !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header > header h4 {
+  font-size: 13px !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header .semi-button {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+}
+
+body[data-recall-page] .app-layout > .semi-layout-header .semi-button svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.recall-tab-progress {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: -1px;
+  height: 1.5px;
+  overflow: hidden;
+  border-radius: 99px;
+  pointer-events: none;
+  background: rgba(255, 255, 255, .045);
+}
+
+.recall-tab-progress i {
+  display: block;
+  width: var(--recall-progress-width, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22d3ee, #a78bfa 58%, #f472b6);
+  box-shadow: 0 0 12px rgba(34, 211, 238, .55);
+  transition: width .1s linear;
+}
+
+/* The same scroll-linked depth used on the reference home page. */
+body[data-recall-page="pricing"] .pricing-search-header .semi-card-cover {
+  transform: scale(calc(1 - var(--recall-hero-scroll) * .035));
+  transform-origin: 50% 0;
+  transition: transform .08s linear, box-shadow .24s ease;
+  will-change: transform;
+}
+
+body[data-recall-page="pricing"] .pricing-search-header .semi-card-cover > div::after {
+  opacity: calc(.78 + var(--recall-hero-scroll) * .18);
+}
+
+body[data-recall-page="rankings"] .recall-rank-hero {
+  transform: scale(calc(1 - var(--recall-hero-scroll) * .022));
+  transform-origin: 50% 0;
+  transition: transform .08s linear;
+  will-change: transform;
+}
+
+body[data-recall-page="rankings"] .recall-rank-hero-inner,
+body[data-recall-page="about"] .recall-about-shell > div {
+  transform: translateY(calc(var(--recall-hero-scroll) * -10px));
+  transition: transform .08s linear;
+}
+
+body[data-recall-page="about"] .recall-about-shell {
+  box-shadow:
+    0 calc(30px + var(--recall-hero-scroll) * 12px) 100px rgba(0, 0, 0, .32),
+    0 0 0 1px rgba(255, 255, 255, .015) inset;
+}
+
+body[data-recall-page] .recall-reveal {
+  transition:
+    opacity .85s cubic-bezier(.16, 1, .3, 1),
+    transform .85s cubic-bezier(.16, 1, .3, 1),
+    border-color .24s ease,
+    box-shadow .24s ease,
+    background .24s ease !important;
+}
+
+@media (max-width: 900px) {
+  body[data-recall-page] .app-layout > .semi-layout-header {
+    height: 66px !important;
+  }
+
+  body[data-recall-page] .app-layout > .semi-layout-header > header,
+  body[data-recall-page] .app-layout > .semi-layout-header.recall-tab-shell.is-scrolled > header {
+    width: calc(100% - 16px) !important;
+    height: 50px !important;
+    margin-top: 8px !important;
+  }
+
+  body[data-recall-page] .app-layout > .semi-layout-header > header > div {
+    padding-left: 9px !important;
+    padding-right: 6px !important;
+  }
+
+  body[data-recall-page] .app-layout > .semi-layout-header nav {
+    height: 38px !important;
+  }
+
+  body[data-recall-page] .app-layout > .semi-layout-header nav a {
+    padding: 6px 8px !important;
+    font-size: 11.5px !important;
+  }
+
+  .recall-tab-progress {
+    left: 18px;
+    right: 18px;
+  }
+}
