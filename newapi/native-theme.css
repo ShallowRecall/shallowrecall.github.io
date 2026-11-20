@@ -166,7 +166,24 @@ body[data-recall-page] .app-layout > .semi-layout-header .semi-button:hover {
   color: #fff !important;
   background: rgba(255, 255, 255, .1) !important;
 }
+body[data-recall-page] .app-layout > .semi-layout-header .semi-button.semi-button-primary,
+body[data-recall-page] .app-layout > .semi-layout-header .semi-button.semi-button-primary:hover {
+  color: #061014 !important;
+  background: linear-gradient(135deg, #dffbff, #9be8f3) !important;
+  border-color: transparent !important;
+  box-shadow: 0 8px 24px rgba(34, 211, 238, .14);
+}
 
+body[data-recall-page] .app-layout > .semi-layout-header .semi-button.semi-button-primary span {
+  color: #061014 !important;
+}
+
+body[data-recall-page="pricing"] .app-layout > .semi-layout-header a[href="/pricing"],
+body[data-recall-page="about"] .app-layout > .semi-layout-header a[href="/about"],
+body[data-recall-page="auth"] .app-layout > .semi-layout-header a[href="/login"] {
+  color: #fff !important;
+  background: rgba(255, 255, 255, .065);
+}
 body[data-recall-page] .bg-white,
 body[data-recall-page] [class*="bg-white"],
 body[data-recall-page] [class*="dark:bg-zinc-900"],
