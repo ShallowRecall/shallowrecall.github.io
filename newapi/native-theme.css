@@ -989,3 +989,12 @@ body[data-recall-page="rankings"] main.semi-layout-content > :not(#recall-rankin
     display: none;
   }
 }
+@media (min-width: 901px) {
+  body[data-recall-page] .app-layout > .semi-layout-header nav a[href="/"] { order: 1; }
+  body[data-recall-page] .app-layout > .semi-layout-header nav a[href="/login"],
+  body[data-recall-page] .app-layout > .semi-layout-header nav a[href="/console"] { order: 2; }
+  body[data-recall-page] .app-layout > .semi-layout-header nav a[href="/pricing"] { order: 3; }
+  body[data-recall-page] .app-layout > .semi-layout-header nav a[href="/rankings"] { order: 4; }
+  body[data-recall-page] .app-layout > .semi-layout-header nav a[href*="docs.newapi.pro"] { order: 5; }
+  body[data-recall-page] .app-layout > .semi-layout-header nav a[href="/about"] { order: 6; }
+}
