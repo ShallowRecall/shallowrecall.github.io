@@ -1565,3 +1565,6 @@ body[data-recall-page="home"].recall-native-home main.semi-layout-content > :not
     min-width: 105px;
   }
 }
+body[data-recall-page] .semi-layout-footer {
+  display: none !important;
+}
