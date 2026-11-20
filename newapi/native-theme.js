@@ -6,11 +6,13 @@
   let enhanceQueued = false;
   let rippleModulePromise = null;
   let revealObserver = null;
+  let pricingPromise = null;
 
   const pageName = () => {
     const path = (location.pathname || '/').replace(/\/+$/, '') || '/';
     if (path === '/') return 'home';
     if (path.startsWith('/pricing')) return 'pricing';
+    if (path.startsWith('/rankings')) return 'rankings';
     if (path.startsWith('/about')) return 'about';
     if (path.startsWith('/login') || path.startsWith('/register') || path.startsWith('/reset') || path.startsWith('/oauth')) return 'auth';
     if (path.startsWith('/console') || path.startsWith('/dashboard') || path.startsWith('/token') || path.startsWith('/log') || path.startsWith('/personal') || path.startsWith('/topup') || path.startsWith('/channel') || path.startsWith('/models') || path.startsWith('/user') || path.startsWith('/setting')) return 'console';
@@ -258,8 +260,11 @@
       enhanceQueued = false;
       forceDarkTheme();
       const page = pageName();
+      ensureRankingsNav();
+      if (page !== 'rankings') document.getElementById('recall-rankings-root')?.remove();
       if (page === 'pricing') enhancePricing();
       if (page === 'about') enhanceAbout();
+      if (page === 'rankings') enhanceRankings();
     });
   };
 
